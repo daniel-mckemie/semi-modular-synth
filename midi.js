@@ -1,3 +1,51 @@
+// Interface setup
+
+const dial = new Nexus.Dial('#dial',{
+  'size': [150, 150],
+  'interaction': 'radial', // "radial", "vertical", or "horizontal"
+  'mode': 'relative', // "absolute" or "relative"
+  'min': 0,
+  'max': 127,
+  'step': 0,
+  'value': 0
+})
+
+
+const slider = new Nexus.Slider('#slider',{
+    'size': [120,20],
+    'mode': 'relative',  // 'relative' or 'absolute'
+    'min': 0,
+    'max': 127,
+    'step': 0,
+    'value': 0
+})
+
+// var modulator = new Tone.Oscillator(20, "square").toMaster().start()
+var carrier = new Tone.FMOscillator({
+	frequency: 200,
+	modulationIndex: 2,
+	modulationType: "sine",
+	harmonicity: 1
+}).toMaster()
+.start()
+
+dial.on('change', function(x){
+  console.log(dial.value)
+	carrier.frequency.value = x
+
+})
+
+
+slider.on('change', function(x) {
+	carrier.harmonicity.value = x
+})
+
+
+
+
+
+// MIDI setup
+
 let midi; 
 let data;
 // request MIDI access
@@ -36,31 +84,61 @@ const onMIDIMessage = message => {
 	type = data[0] & 0xf0, // channel agnostic message type
 	note = data[1],
 	velocity = data[2];
-	// with pressure and tilt off
-	// note off: 128, cmd: 8
-	// note on: 144, cmd: 9
-	// pressure / tilt on
-	// pressure: 176, cmd: 11
-	// bend: 224, cmd: 14
+
 	switch (note) {
 		case 14:
-		console.log(velocity);
+		knob(velocity)
 		break;
 		case 2:
-		console.log(velocity);
+		fader(velocity)
 		break;
 	}
 	// console.log('MIDI data', data)
 }
 
-function knob(value) {
-	console.log(value)
+function knob(x) {
+	dial.value = x
+	carrier.frequency.value = x * 3
 }
 
-function fader(value) {
-	console.log(value)
+function fader(x) {
+	slider.value = x
+	carrier.harmonicity.value = x
 }
 
 
 
 
+
+
+
+
+// WebMidi.js
+
+
+// WebMidi.enable(function (err) {
+// 	if(err) {
+// 		console.log('WebMidi could not be enabled.', err);
+// 	} else {
+// 		console.log('WebMidi enabled!')
+// 	}
+// });
+
+// WebMidi.enable(function (err) {
+//     console.log(WebMidi.inputs);
+//     console.log(WebMidi.outputs);
+// });
+
+// //By name
+// const input = WebMidi.getInputByName("nanoKONTROL SLIDER/KNOB")
+
+// // By Id 
+// // const input = WebMidi.getInputById('-1966356167');
+
+// //By Index
+// // const input = WebMidi.inputs[0];
+
+// input.addListener('controlchange', 'all',
+// 	function(e) {
+// 		console.log("Received 'controlchange' message.", e)
+// 	});

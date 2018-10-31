@@ -1,3 +1,4 @@
+/*
 const dial = new Nexus.Dial('#dial',{
   'size': [150, 150],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
@@ -7,6 +8,8 @@ const dial = new Nexus.Dial('#dial',{
   'step': 0,
   'value': 0
 })
+
+
 
 const slider = new Nexus.Slider('#slider',{
     'size': [120,20],
@@ -18,14 +21,16 @@ const slider = new Nexus.Slider('#slider',{
 })
 
 // var modulator = new Tone.Oscillator(20, "square").toMaster().start()
-// var carrier = new Tone.FMOscillator({
-// 	frequency: 200,
-// 	modulationIndex: 2,
-// 	modulationType: "sine",
-// 	harmonicity: 1
-// // }).toMaster().start()
+var carrier = new Tone.FMOscillator({
+	frequency: 200,
+	modulationIndex: 2,
+	modulationType: "sine",
+	harmonicity: 1
+}).toMaster()
+// .start()
 
 dial.on('change', function(x){
+  console.log(dial.value)
 	carrier.frequency.value = x
 
 })
@@ -35,7 +40,7 @@ slider.on('change', function(x) {
 	carrier.harmonicity.value = x
 })
 
-
+*/
 
 
 
