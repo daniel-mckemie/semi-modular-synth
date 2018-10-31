@@ -18,12 +18,12 @@ const slider = new Nexus.Slider('#slider',{
 })
 
 // var modulator = new Tone.Oscillator(20, "square").toMaster().start()
-var carrier = new Tone.FMOscillator({
-	frequency: 200,
-	modulationIndex: 2,
-	modulationType: "sine",
-	harmonicity: 1
-}).toMaster().start()
+// var carrier = new Tone.FMOscillator({
+// 	frequency: 200,
+// 	modulationIndex: 2,
+// 	modulationType: "sine",
+// 	harmonicity: 1
+// // }).toMaster().start()
 
 dial.on('change', function(x){
 	carrier.frequency.value = x
