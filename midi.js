@@ -1,43 +1,61 @@
 // Interface setup
 
-const dial = new Nexus.Dial('#dial',{
+const dial1 = new Nexus.Dial('#dial',{
   'size': [150, 150],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
-  'min': 0,
-  'max': 127,
+  'min': 22000,
+  'max': 46330,
   'step': 0,
   'value': 0
 })
 
 
-const slider = new Nexus.Slider('#slider',{
-    'size': [120,20],
+const dial2 = new Nexus.Dial('#dial2',{
+    'size': [150,150],
     'mode': 'relative',  // 'relative' or 'absolute'
-    'min': 0,
-    'max': 127,
+    'min': 22000,
+    'max': 47400,
     'step': 0,
     'value': 0
 })
 
-// var modulator = new Tone.Oscillator(20, "square").toMaster().start()
-var carrier = new Tone.FMOscillator({
-	frequency: 200,
-	modulationIndex: 2,
+
+let feedbackDelay = new Tone.Reverb(0.133, 0.01).toMaster()
+
+const osc1 = new Tone.Oscillator({
+	frequency: 0,
+	modulationIndex: 0,
 	modulationType: "sine",
-	harmonicity: 1
-}).toMaster()
+	harmonicity: 0
+}).connect(feedbackDelay).toMaster()
 .start()
 
-dial.on('change', function(x){
-  console.log(dial.value)
-	carrier.frequency.value = x
+const osc2 = new Tone.Oscillator({
+  frequency: 0,
+  modulationIndex: 0,
+  modulationType: "sine",
+  harmonicity: 0
+}).connect(feedbackDelay).toMaster()
+.start()
+
+const biasFreq = new Tone.Oscillator({
+  frequency: 77000,
+  modulationIndex: 0,
+  modulationType: "sine",
+  harmonicity: 0
+}).connect(feedbackDelay).toMaster()
+.start()
+
+
+dial1.on('change', function(x){
+	osc1.frequency.value = x
 
 })
 
 
-slider.on('change', function(x) {
-	carrier.harmonicity.value = x
+dial2.on('change', function(x) {
+	osc2.frequency.value = x
 })
 
 
@@ -63,7 +81,7 @@ function onMIDISuccess(midiAccess) {
     // when we get a succesful response, run this code
     const inputs = midi.inputs.values();
     // loop over all available inputs and listen for any MIDI input
-    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+    for (let input = inputs.next(); input && !input.done; input = inputs.next()) {
     	// each time there is a midi message call the onMIDIMessage function
     	input.value.onmidimessage = onMIDIMessage;
     }
@@ -87,58 +105,23 @@ const onMIDIMessage = message => {
 
 	switch (note) {
 		case 14:
-		knob(velocity)
+		knob1(velocity)
 		break;
-		case 2:
-		fader(velocity)
+		case 15:
+		knob2(velocity)
 		break;
 	}
 	// console.log('MIDI data', data)
 }
 
-function knob(x) {
-	dial.value = x
-	carrier.frequency.value = x * 3
+function knob1(x) {
+	dial1.value = x * 190 + 22200
+	osc1.frequency.value = x * 190 + 22200
+  console.log(osc1.frequency.value)
 }
 
-function fader(x) {
-	slider.value = x
-	carrier.harmonicity.value = x
+function knob2(x) {
+	dial2.value = x * 200 + 22000
+	osc2.frequency.value = x * 200 + 22000
+  console.log(osc2.frequency.value)
 }
-
-
-
-
-
-
-
-
-// WebMidi.js
-
-
-// WebMidi.enable(function (err) {
-// 	if(err) {
-// 		console.log('WebMidi could not be enabled.', err);
-// 	} else {
-// 		console.log('WebMidi enabled!')
-// 	}
-// });
-
-// WebMidi.enable(function (err) {
-//     console.log(WebMidi.inputs);
-//     console.log(WebMidi.outputs);
-// });
-
-// //By name
-// const input = WebMidi.getInputByName("nanoKONTROL SLIDER/KNOB")
-
-// // By Id 
-// // const input = WebMidi.getInputById('-1966356167');
-
-// //By Index
-// // const input = WebMidi.inputs[0];
-
-// input.addListener('controlchange', 'all',
-// 	function(e) {
-// 		console.log("Received 'controlchange' message.", e)
-// 	});
