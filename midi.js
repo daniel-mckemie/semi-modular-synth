@@ -5,7 +5,7 @@ const dial1 = new Nexus.Dial('#dial',{
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 22000,
-  'max': 46330,
+  'max': 95550, // 46330 if 96k
   'step': 0,
   'value': 0
 })
@@ -15,7 +15,7 @@ const dial2 = new Nexus.Dial('#dial2',{
     'size': [150,150],
     'mode': 'relative',  // 'relative' or 'absolute'
     'min': 22000,
-    'max': 47400,
+    'max': 96000, // 47400 if 96k
     'step': 0,
     'value': 0
 })
@@ -40,7 +40,7 @@ const osc2 = new Tone.Oscillator({
 .start()
 
 const biasFreq = new Tone.Oscillator({
-  frequency: 77000,
+  frequency: 77000, // 44000 if not 192k
   modulationIndex: 0,
   modulationType: "sine",
   harmonicity: 0
@@ -115,13 +115,13 @@ const onMIDIMessage = message => {
 }
 
 function knob1(x) {
-	dial1.value = x * 190 + 22200
+	dial1.value = x * 380 + 22200 // x * 190 if 96k (check for quality @ 192k!)
 	osc1.frequency.value = x * 190 + 22200
   console.log(osc1.frequency.value)
 }
 
 function knob2(x) {
-	dial2.value = x * 200 + 22000
+	dial2.value = x * 400 + 22000 // x * 200 if 96k (check for quality @ 192k!)
 	osc2.frequency.value = x * 200 + 22000
   console.log(osc2.frequency.value)
 }
