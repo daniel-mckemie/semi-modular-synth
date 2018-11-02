@@ -1,46 +1,59 @@
-/*
-const dial = new Nexus.Dial('#dial',{
+// Interface setup
+
+// Oscillator dials
+const dial1 = new Nexus.Dial('#dial', {
   'size': [150, 150],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
-  'min': 0,
-  'max': 2000,
+  'min': 22000,
+  'max': 34265, 
   'step': 0,
   'value': 0
 })
 
-
-
-const slider = new Nexus.Slider('#slider',{
-    'size': [120,20],
-    'mode': 'relative',  // 'relative' or 'absolute'
-    'min': 1,
-    'max': 5,
-    'step': 0,
-    'value': 0
-})
-
-// var modulator = new Tone.Oscillator(20, "square").toMaster().start()
-var carrier = new Tone.FMOscillator({
-	frequency: 200,
-	modulationIndex: 2,
-	modulationType: "sine",
-	harmonicity: 1
-}).toMaster()
-// .start()
-
-dial.on('change', function(x){
-  console.log(dial.value)
-	carrier.frequency.value = x
+dial1.on('change', function(x) {
+  osc1.frequency.value = x
 
 })
 
-
-slider.on('change', function(x) {
-	carrier.harmonicity.value = x
+const dial2 = new Nexus.Dial('#dial2', {
+  'size': [150, 150],
+  'mode': 'relative', // 'relative' or 'absolute'
+  'min': 22000,
+  'max': 34700, 
+  'step': 0,
+  'value': 0
 })
 
-*/
+dial2.on('change', function(x) {
+  osc2.frequency.value = x
+})
 
 
+// Oscillator volume controls
+const fader1 = new Nexus.Slider('#slider1', {
+  'size': [150, 20],
+  'mode': 'relative',  // 'relative' or 'absolute'
+  'min': -12,
+  'max': 12,
+  'step': 0,
+  'value': -12
+});
+
+fader1.on('change', function(x) {
+  oscAmp1.volume.value = x 
+})
+
+const fader2 = new Nexus.Slider('#slider2', {
+  'size': [150, 20],
+  'mode': 'relative',  // 'relative' or 'absolute'
+  'min': -12,
+  'max': 12,
+  'step': 0,
+  'value': -12
+});
+
+fader2.on('change', function(x) {
+  oscAmp2.volume.value = x
+})
 
