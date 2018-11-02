@@ -1,7 +1,6 @@
 // Interface setup
 
 // System ON
-
 const power = new Nexus.Toggle('#switch1', {
   'size': [40, 20],
   'state': false
@@ -9,9 +8,28 @@ const power = new Nexus.Toggle('#switch1', {
 
 // Starts the system, once on cannot be shut off
 power.on('change', function(x) {
-  osc1.start()
-  osc2.start()
-  biasFreq.start()
+  if (x === true) {
+    osc1.start();
+    osc2.start();
+    biasFreq.start();
+  } else {
+    osc1.stop();
+    osc2.stop();
+    biasFreq.stop();
+  }
+})
+
+// User Input/Microphone ON/OFF
+const inputSwitch = new Nexus.Toggle('#switch2', {
+  'size': [40, 20],
+  'state': false
+})
+
+// Starts the system, once on cannot be shut off
+inputSwitch.on('change', function(x) {
+  if (x === true) {
+    userInput.open()
+  } else { userInput.close() }
 })
 
 
@@ -102,4 +120,19 @@ const fader4 = new Nexus.Slider('#slider4', {
 
 fader4.on('change', function(x) {
   tapeDelayRAmp.volume.value = x
+})
+
+
+// Input Gain
+const fader5 = new Nexus.Slider('#slider5', {
+  'size': [150, 20],
+  'mode': 'relative', // 'relative' or 'absolute'
+  'min': -24,
+  'max': 12,
+  'step': 0,
+  'value': -24
+});
+
+fader5.on('change', function(x) {
+  userAmp.volume.value = x
 })

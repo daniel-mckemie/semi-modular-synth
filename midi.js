@@ -58,8 +58,14 @@ const onMIDIMessage = message => {
     case 5: // korg slider 4
       amp4(velocity)
       break;
+    case 6: // korg slider 4
+      amp5(velocity)
+      break;
     case 23: // korg button 1A
-      powerOn(velocity)
+      oscOn(velocity)
+      break;
+    case 33: // korg button 1A
+      inputOn(velocity)
       break;
 
   }
@@ -105,7 +111,7 @@ function amp3(x) {
   const newValue = ((x - 127) * newRange) / oldRange
   fader3.value = newValue.toFixed(8)
   tapeDelayL2Amp.volume.value = newValue.toFixed(8)
-  console.log(tapeDelayL2Amp.volume.value)
+  // console.log(tapeDelayL2Amp.volume.value)
 }
 
 function amp4(x) {
@@ -114,11 +120,27 @@ function amp4(x) {
   const newValue = ((x - 127) * newRange) / oldRange
   fader4.value = newValue.toFixed(8)
   tapeDelayRAmp.volume.value = newValue.toFixed(8)
-  console.log(tapeDelayRAmp.volume.value)
+  // console.log(tapeDelayRAmp.volume.value)
 }
 
-function powerOn(x) {
+// Input Gain
+function amp5(x) {
+  const oldRange = 127 - 0
+  const newRange = 12 - (-24)
+  const newValue = ((x - 127) * newRange) / oldRange + 12
+  fader5.value = newValue.toFixed(8)
+  userAmp.volume.value = newValue.toFixed(8)
+  console.log(userAmp.volume.value)
+}
+
+function oscOn(x) {
   if (x === 127) {
     power.state = true
-  } else {power.state = false}
+  } else { power.state = false }
+}
+
+function inputOn(x) {
+  if (x === 127) {
+    inputSwitch.state = true
+  } else { inputSwitch.state = false }
 }

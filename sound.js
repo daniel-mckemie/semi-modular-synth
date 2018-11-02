@@ -44,6 +44,10 @@ const oscAmp2 = new Tone.Volume({
   volume: -12,
 }).connect(machineReverb)
 
+const userAmp = new Tone.Volume({
+  volume: -24,
+}).connect(machineReverb)
+
 // Oscillators
 const osc1 = new Tone.Oscillator({
   frequency: 0,
@@ -59,7 +63,6 @@ const osc2 = new Tone.Oscillator({
   harmonicity: 0
 }).connect(oscAmp2)
 
-
 // Bias frequency to emulate tape machine
 const biasFreq = new Tone.Oscillator({
   frequency: 44000,
@@ -67,3 +70,21 @@ const biasFreq = new Tone.Oscillator({
   modulationType: "sine",
   harmonicity: 0
 }).connect(machineReverb)
+
+// Connect direct user input or microphone, chosen
+// input based on global computer specs...
+const userInput = new Tone.UserMedia({
+  volume: -12
+})
+
+userInput.connect(userAmp)
+
+
+
+
+
+
+
+
+
+
