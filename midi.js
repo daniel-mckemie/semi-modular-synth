@@ -5,7 +5,7 @@ let data;
 // request MIDI access
 if (navigator.requestMIDIAccess) {
   navigator.requestMIDIAccess({
-    sysex: false // this defaults to 'false' and we won't be covering sysex in this article. 
+    sysex: false // this defaults to 'false'
   }).then(onMIDISuccess, onMIDIFailure);
 } else {
   alert("No MIDI support in your browser.");
@@ -58,9 +58,12 @@ const onMIDIMessage = message => {
     case 5: // korg slider 4
       amp4(velocity)
       break;
+    case 23: // korg button 1A
+      powerOn(velocity)
+      break;
 
   }
-  // console.log('MIDI data', data)
+  // console.log('MIDI data', data) // Reads all MIDI data
 }
 
 function knob1(x) {
@@ -77,18 +80,18 @@ function knob2(x) {
 
 // Oscillator amps
 function amp1(x) {
-	const oldRange = 127 - 0
-	const newRange = 12 - (-12)
-	const newValue = ((x - 127) * newRange) / oldRange + 12
+  const oldRange = 127 - 0
+  const newRange = 12 - (-12)
+  const newValue = ((x - 127) * newRange) / oldRange + 12
   fader1.value = newValue.toFixed(8)
   oscAmp1.volume.value = newValue.toFixed(8)
   // console.log(oscAmp1.volume.value)
 }
 
 function amp2(x) {
-	const oldRange = 127 - 0
-	const newRange = 12 - (-12)
-	const newValue = ((x - 127) * newRange) / oldRange + 12
+  const oldRange = 127 - 0
+  const newRange = 12 - (-12)
+  const newValue = ((x - 127) * newRange) / oldRange + 12
   fader2.value = newValue.toFixed(8)
   oscAmp2.volume.value = newValue.toFixed(8)
   // console.log(oscAmp2.volume.value)
@@ -114,8 +117,8 @@ function amp4(x) {
   console.log(tapeDelayRAmp.volume.value)
 }
 
-
-
-
-
-
+function powerOn(x) {
+  if (x === 127) {
+    power.state = true
+  } else {power.state = false}
+}

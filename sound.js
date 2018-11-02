@@ -3,7 +3,7 @@
 
 // Cross coupling feedback environment...
 // (Figure 8a in 'Tape Delay Techniques///')
- 
+
 
 let rightChannel = new Tone.Panner(1).toMaster()
 
@@ -46,18 +46,18 @@ const oscAmp2 = new Tone.Volume({
 
 // Oscillators
 const osc1 = new Tone.Oscillator({
-	frequency: 0,
-	modulationIndex: 0,
-	modulationType: "sine",
-	harmonicity: 0
-}).connect(oscAmp1).start()
+  frequency: 0,
+  modulationIndex: 0,
+  modulationType: "sine",
+  harmonicity: 0
+}).connect(oscAmp1)
 
 const osc2 = new Tone.Oscillator({
   frequency: 0,
   modulationIndex: 0,
   modulationType: "sine",
   harmonicity: 0
-}).connect(oscAmp2).start()
+}).connect(oscAmp2)
 
 
 // Bias frequency to emulate tape machine
@@ -67,10 +67,3 @@ const biasFreq = new Tone.Oscillator({
   modulationType: "sine",
   harmonicity: 0
 }).connect(machineReverb)
-.start()
-
-
-
-
-
-
