@@ -52,6 +52,13 @@ const onMIDIMessage = message => {
     case 3: // korg slider 2
       amp2(velocity)
       break;
+    case 4: // korg slider 3
+      amp3(velocity)
+      break;
+    case 5: // korg slider 4
+      amp4(velocity)
+      break;
+
   }
   // console.log('MIDI data', data)
 }
@@ -68,13 +75,14 @@ function knob2(x) {
   // console.log(osc2.frequency.value)
 }
 
+// Oscillator amps
 function amp1(x) {
 	const oldRange = 127 - 0
 	const newRange = 12 - (-12)
 	const newValue = ((x - 127) * newRange) / oldRange + 12
   fader1.value = newValue.toFixed(8)
   oscAmp1.volume.value = newValue.toFixed(8)
-  console.log(oscAmp1.volume.value)
+  // console.log(oscAmp1.volume.value)
 }
 
 function amp2(x) {
@@ -83,5 +91,31 @@ function amp2(x) {
 	const newValue = ((x - 127) * newRange) / oldRange + 12
   fader2.value = newValue.toFixed(8)
   oscAmp2.volume.value = newValue.toFixed(8)
-  console.log(oscAmp2.volume.value)
+  // console.log(oscAmp2.volume.value)
 }
+
+
+// Feedback Amps
+function amp3(x) {
+  const oldRange = 127 - 0
+  const newRange = 0 - (-24)
+  const newValue = ((x - 127) * newRange) / oldRange
+  fader3.value = newValue.toFixed(8)
+  tapeDelayL2Amp.volume.value = newValue.toFixed(8)
+  console.log(tapeDelayL2Amp.volume.value)
+}
+
+function amp4(x) {
+  const oldRange = 127 - 0
+  const newRange = 0 - (-24)
+  const newValue = ((x - 127) * newRange) / oldRange
+  fader4.value = newValue.toFixed(8)
+  tapeDelayRAmp.volume.value = newValue.toFixed(8)
+  console.log(tapeDelayRAmp.volume.value)
+}
+
+
+
+
+
+

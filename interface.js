@@ -30,7 +30,7 @@ dial2.on('change', function(x) {
 })
 
 
-// Oscillator volume controls
+// Oscillator amplitude controls
 const fader1 = new Nexus.Slider('#slider1', {
   'size': [150, 20],
   'mode': 'relative',  // 'relative' or 'absolute'
@@ -55,6 +55,37 @@ const fader2 = new Nexus.Slider('#slider2', {
 
 fader2.on('change', function(x) {
   oscAmp2.volume.value = x
+})
+
+
+// Feedback depth controls
+
+// For input into L from delayed R
+const fader3 = new Nexus.Slider('#slider3', {
+  'size': [150, 20],
+  'mode': 'relative',  // 'relative' or 'absolute'
+  'min': -24,
+  'max': 0,
+  'step': 0,
+  'value': -24
+});
+
+fader3.on('change', function(x) {
+  tapeDelayL2Amp.volume.value = x 
+})
+
+// For L channel input coupled back
+const fader4 = new Nexus.Slider('#slider4', {
+  'size': [150, 20],
+  'mode': 'relative',  // 'relative' or 'absolute'
+  'min': -24,
+  'max': 0,
+  'step': 0,
+  'value': -24
+});
+
+fader4.on('change', function(x) {
+  tapeDelayRAmp.volume.value = x
 })
 
 
