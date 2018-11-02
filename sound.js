@@ -1,25 +1,25 @@
 // Components go from bottom up...
 // (Source --> Effects --> Output)
-
-// TO DO:
-// FIGURE OUT HOW TO DELAY INTO RIGHT CHANNEL
-
-let rightChannel = new Tone.Panner(1).connect(machineReverb).toMaster()
-let tapeDelay = new Tone.Delay(8, 8).connect(rightChannel)
-let leftChannel = new Tone.Panner(-1).connect(tapeDelay).toMaster()
-let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel, tapeDelay)
-
+ 
+let rightChannel = new Tone.Panner(1).toMaster()
+let tapeDelayR = new Tone.Delay(4, 4).connect(rightChannel)
+let leftChannel2 = new Tone.Panner(-1).connect(tapeDelayR).toMaster()
+let tapeDelayL2 = new Tone.Delay(4, 4).connect(leftChannel2)
+let tapeDelayL = new Tone.Delay(4, 4).chain(rightChannel, tapeDelayL2)
+let leftChannel = new Tone.Panner(-1).connect(tapeDelayL).toMaster()
+let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel)
+// let tapeDelayR = new Tone.Delay(4, 4).connect(leftChannel)
 
 // Oscillator amplitudes...In order for these to 
 // read at an accurate scale of -12 to 12, the 
 // internal computer volume must be set to 50%
 const oscAmp1 = new Tone.Volume({
   volume: -12,
-}).connect(leftChannel)
+}).connect(machineReverb)
 
 const oscAmp2 = new Tone.Volume({
   volume: -12,
-}).connect(leftChannel)
+}).connect(machineReverb)
 
 // Oscillators
 const osc1 = new Tone.Oscillator({
@@ -27,14 +27,14 @@ const osc1 = new Tone.Oscillator({
 	modulationIndex: 0,
 	modulationType: "sine",
 	harmonicity: 0
-}).chain(machineReverb, oscAmp1).start()
+}).connect(oscAmp1).start()
 
 const osc2 = new Tone.Oscillator({
   frequency: 0,
   modulationIndex: 0,
   modulationType: "sine",
   harmonicity: 0
-}).chain(machineReverb, oscAmp2).start()
+}).connect(oscAmp2).start()
 
 
 // Bias frequency to emulate tape machine
@@ -43,5 +43,11 @@ const biasFreq = new Tone.Oscillator({
   modulationIndex: 0,
   modulationType: "sine",
   harmonicity: 0
-}).chain(machineReverb).toMaster()
+}).connect(machineReverb)
 .start()
+
+
+
+
+
+

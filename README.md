@@ -1,44 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#Semi-Modular-Synth
+# Tape Delay Feedback System
+ A browser housed semi-modular synthesizer, built using Flocking, NexusUI, 
+A browser housed tape delay feedback system, written in JavaScript and utilizing the Web Audio API/Tone.js, Web MIDI API, and NexusUI.
 
-## Available Scripts
+ The system is a digital replica of the one outlined and used by Pauline Oliveros for her *Mnemonics* series, and is outlined in more detail in the article below.
 
-In the project directory, you can run:
+ [Tape Delay Techniques for Electronic Music Composers](https://www.scribd.com/document/256462168/Oliveros-Pauline-Tape-Delay-Techniques)
+ 
+ **Instructions for use:**
+- First, push the button to switch the system **ON**
+- There are two oscillators that are the soundsources for the system, both operating in the superaudio range (22000Hz - 96000Hz depending on sample rate).
+- The sliders allow you to control the amplitude of each respective oscillator, the level of feedback being brought back into the system (this mimics the line amplifier used by Pauline in the original system), the depth of the delay, and the depth of the Right Channel in the system.  More information on these can be found by toggling the **HELP** switch.
+- You can turn the oscillators off and choose to have your own input into the system by toggling the **INPUT** switch.  The browser should detect your local hardware specs and sync automatically based on your settings, though this has not been fully tested beyond OSX and Chromebook.
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ *Things to be aware of:*
+- The system is sensitive!  You are dealing with a lot of looped and delayed feedback!  If you find that the system has 'bottomed out' (ie. stopped making all sound), it is likely because the feedback was overwhelming and it muted itself.  To clear the system, simply lower the **DELAY FEEDBACK** amplitude, and perhaps the other depth sliders.
+- It is highly suggested that you read the article above, and give a listen to Pauline's early electronic works that utilize this system.  Again, [Mnemonics I-V by Pauline Oliveros](https://youtu.be/QhOEY-mwIyg) are the pieces that use this system, and could be a good reference to how it is acting.  You may also refer to pieces such as [Saxony by James Tenney](https://youtu.be/Ucqb9zGWNHc); and though it employs somewhat different techniques, [Poppy Nogood and the Phantom Band by Terry Riley](https://youtu.be/mgIT5xh1nJE).
+- Lastly, it is suggested to let the system be itself.  Experimentation is key, but sometimes stepping away and letting things unfold is when magic can happen.  Remember, in feedback systems, not every action has an effect, and even the slightest action can have massive impacts.
