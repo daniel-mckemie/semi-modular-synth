@@ -32,3 +32,8 @@
     background: #4CAF50;
     cursor: pointer;
 }
+
+audio {
+  display: block;
+  margin: 1rem auto;
+}

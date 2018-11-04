@@ -1,4 +1,3 @@
-#Semi-Modular-Synth
 # Tape Delay Feedback System
  A browser housed semi-modular synthesizer, built using Flocking, NexusUI, 
 A browser housed tape delay feedback system, written in JavaScript and utilizing the Web Audio API/Tone.js, Web MIDI API, and NexusUI.
