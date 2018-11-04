@@ -1,0 +1,54 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./libs/jQuery-Knob-master/dist/jquery.knob.min.js"></script>
+  <script src="./libs/NexusUI.js"></script>
+  <script src="./libs/Tone.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div id="switch1"></div>
+    <div>Oscillator Switch</div>
+    <br><br>
+    <div id="switch2"></div>
+    <div>Input Switch</div>
+    <br><br>
+    <div class="slidecontainer">
+      <input type="range" min="-24" max="12" value="-24" class="slider" id="slider5">
+    </div>
+    <div>Input Volume</div>
+    <br><br>
+    <input type="text" value="22000" class="dial1" data-angleOffset="-125" data-angleArc="250">
+    <div class="slidecontainer">
+      <input type="range" min="-12" max="12" value="-12" class="slider" id="slider1">
+    </div>
+    <div>Osc 1 Volume</div>
+    <br><br>
+    <input type="text" value="22000" class="dial2" data-angleOffset="-125" data-angleArc="250">
+    <div class="slidecontainer">
+      <input type="range" min="-12" max="12" value="-12" class="slider" id="slider2">
+    </div>
+  
+    <div>Osc 2 Volume</div>
+    <br><br>
+    <div class="slidecontainer">
+      <input type="range" min="-24" max="24" value="-24" class="slider" id="slider3">
+    </div>
+    <div>Cross Coupling Depth</div>
+    <br><br>
+    <div class="slidecontainer">
+      <input type="range" min="-24" max="24" value="-24" class="slider" id="slider4">
+    </div>
+    <div>R to L Depth</div>
+  </div>
+  <script src="sound.js"></script>
+  <script src="interface.js"></script>
+  <script src="midi.js"></script>
+</body>
+
+</html>
