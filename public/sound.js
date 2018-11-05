@@ -86,20 +86,20 @@ const userAmp = new Tone.Volume({
 // Oscillators
 const osc1 = new Tone.AMOscillator({
   frequency: 0,
-  type: "sine",
-  modulationType: "sawtooth",
+  type: 'sine',
+  modulationType: 'square',
   harmonicity: 0
 }).connect(oscAmp1)
 
 const osc2 = new Tone.FMOscillator({
   frequency: 0,
-  modulationIndex: 2,
-  modulationType: "sine",
+  modulationIndex: 0,
+  modulationType: 'square',
   harmonicity: 1
 }).connect(oscAmp2)
 
 //Noise Filter
-const noise = new Tone.Noise("white")
+const noise = new Tone.Noise('white')
 const noiseFilter = new Tone.AutoFilter({
   frequency: 20,
   depth: 0,

@@ -76,8 +76,14 @@ const onMIDIMessage = message => {
     case 33: // korg button 1B
       inputOn(velocity)
       break;
+    case 24: // korg button 4A
+      amModType(velocity)
+      break;
     case 25: // korg button 3A
       amFmSwitch(velocity)
+      break;
+    case 26: // korg button 4A
+      fmModType(velocity)
       break;
     case 27: // korg button 5A
       noiseFilterSwitch(velocity)
@@ -205,6 +211,18 @@ function amFmSwitch(x) {
   } else { modType.state = false }
 }
 
+function amModType(x) {
+  if (x === 127) {
+    amModSwitch.state = true
+  } else { amModSwitch.state = false }
+}
+
+function fmModType(x) {
+  if (x === 127) {
+    fmModSwitch.state = true
+  } else { fmModSwitch.state = false }
+}
+
 function noiseFilterSwitch(x) {
   if (x === 127) {
     filterSwitch.state = true
@@ -231,10 +249,3 @@ function noiseDepth(x) {
   noiseFilter.depth.value = newValue
   console.log(noiseFilter.depth.value)
 }
-
-
-
-
-
-
-
