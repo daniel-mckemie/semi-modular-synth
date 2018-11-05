@@ -121,9 +121,51 @@ fmHarmSlider.on('change', function(x) {
 })
 
 
+// Switch from AM or FM Synthesis
+const filterSwitch = new Nexus.Toggle('#filterSwitch', {
+  'size': [40, 20],
+  'state': false
+})
 
+// Starts the system, once on cannot be shut off
+filterSwitch.on('change', function(x) {
+  if (x === true) {
+    noise.start();
+    noiseFilter.start();
+  } else {
+    noise.stop();
+    noiseFilter.stop();
+    
+  }
+})
 
+// FM Oscillator controls
+const noiseFreqDial = new Nexus.Dial('#noiseFreqDial', {
+  'size': [150, 150],
+  'interaction': 'radial', // "radial", "vertical", or "horizontal"
+  'mode': 'relative', // "absolute" or "relative"
+  'min': 0,
+  'max': 40,
+  'step': 0,
+  'value': 0
+})
 
+noiseFreqDial.on('change', function(x) {
+  noiseFilter.frequency.value = x
+})
+
+const noiseDepthSlider = new Nexus.Slider('#noiseDepthSlider', {
+  'size': [150, 20],
+  'mode': 'relative', // 'relative' or 'absolute'
+  'min': 0,
+  'max': 1,
+  'step': 0,
+  'value': 0
+})
+
+noiseDepthSlider.on('change', function(x) {
+  noiseFilter.depth.value = x
+})
 
 
 // Input Gain
@@ -139,23 +181,6 @@ const userVol = new Nexus.Slider('#userVol', {
 userVol.on('change', function(x) {
   userAmp.volume.value = x
 })
-
-// Oscillator amplitude controls
-
-
-// const fader2 = new Nexus.Slider('#slider2', {
-//   'size': [150, 20],
-//   'mode': 'relative', // 'relative' or 'absolute'
-//   'min': -12,
-//   'max': 12,
-//   'step': 0,
-//   'value': -12
-// });
-
-// fader2.on('change', function(x) {
-//   oscAmp2.volume.value = x
-// })
-
 
 // Feedback depth controls
 

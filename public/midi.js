@@ -52,6 +52,9 @@ const onMIDIMessage = message => {
     case 17:
       fmMod(velocity)
       break;
+    case 18:
+      noiseFreq(velocity)
+      break;
     case 2: // korg slider 1
       userIn(velocity)
       break;
@@ -60,6 +63,9 @@ const onMIDIMessage = message => {
       break;
     case 5: // korg slider 3
       fmHarm(velocity)
+      break;
+    case 6:
+      noiseDepth(velocity)
       break;
     case 9: // korg slider 7
       crossCouple(velocity)
@@ -73,9 +79,12 @@ const onMIDIMessage = message => {
     case 25: // korg button 3A
       amFmSwitch(velocity)
       break;
+    case 27: // korg button 5A
+      noiseFilterSwitch(velocity)
+      break;
 
   }
-  console.log('MIDI data', data) // Reads all MIDI data
+  // console.log('MIDI data', data) // Reads all MIDI data
 }
 
 const oldRange = 127 - 0 // MIDI range
@@ -195,3 +204,37 @@ function amFmSwitch(x) {
     modType.state = true
   } else { modType.state = false }
 }
+
+function noiseFilterSwitch(x) {
+  if (x === 127) {
+    filterSwitch.state = true
+  } else { filterSwitch.state = false }
+}
+
+function noiseFreq(x) {
+  // logarathmic knob
+  const min = 0
+  const max = 127
+  const logMin = Math.log(1)
+  const logMax = Math.log(40)
+  const scale = (logMax - logMin) / (max - min)
+  let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
+  noiseFreqDial.value = newValue
+  noiseFilter.frequency.value = newValue
+  console.log(noiseFilter.frequency.value)
+}
+
+// FM Osc Harmonicity - Slider 4
+function noiseDepth(x) {
+  const newValue = (x * 0.00787401).toFixed(16)
+  noiseDepthSlider.value = newValue
+  noiseFilter.depth.value = newValue
+  console.log(noiseFilter.depth.value)
+}
+
+
+
+
+
+
+

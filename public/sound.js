@@ -75,6 +75,10 @@ const oscAmp2 = new Tone.Volume({
   volume: -12,
 }).connect(machineReverb)
 
+const noiseAmp = new Tone.Volume({
+  volume: -12,
+}).connect(machineReverb)
+
 const userAmp = new Tone.Volume({
   volume: -24,
 }).connect(machineReverb)
@@ -94,6 +98,14 @@ const osc2 = new Tone.FMOscillator({
   harmonicity: 1
 }).connect(oscAmp2)
 
+//Noise Filter
+const noise = new Tone.Noise("white")
+const noiseFilter = new Tone.AutoFilter({
+  frequency: 20,
+  depth: 0,
+  baseFrequency: 200
+}).connect(noiseAmp)
+noise.connect(noiseFilter)
 
 // Connect direct user input or microphone, chosen
 // input based on global computer specs...
