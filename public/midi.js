@@ -41,106 +41,157 @@ const onMIDIMessage = message => {
 
   switch (note) {
     case 14: // korg knob 1
-      knob1(velocity)
+      amFreq(velocity)
       break;
-    case 15: // korg knob 1
-      knob2(velocity)
+    case 15: // korg knob 2
+      amTune(velocity)
+      break;
+    case 16: // korg knob 3
+      fmFreq(velocity)
+      break;
+    case 17:
+      fmMod(velocity)
       break;
     case 2: // korg slider 1
-      amp1(velocity)
+      userIn(velocity)
       break;
     case 3: // korg slider 2
-      amp2(velocity)
+      amHarm(velocity)
       break;
-    case 4: // korg slider 3
-      amp3(velocity)
+    case 5: // korg slider 3
+      fmHarm(velocity)
       break;
-    case 5: // korg slider 4
-      amp4(velocity)
+    case 9: // korg slider 7
+      crossCouple(velocity)
       break;
-    case 6: // korg slider 4
-      amp5(velocity)
+    case 12: // korg slider 8
+      rightToLeft(velocity)
       break;
-    case 23: // korg button 1A
-      oscOn(velocity)
-      break;
-    case 33: // korg button 1A
+    case 33: // korg button 1B
       inputOn(velocity)
+      break;
+    case 25: // korg button 3A
+      amFmSwitch(velocity)
       break;
 
   }
-  // console.log('MIDI data', data) // Reads all MIDI data
+  console.log('MIDI data', data) // Reads all MIDI data
 }
 
-function knob1(x) {
-  dial1.value = x * 95 + 22200 // x * 190 if 96k (check for quality @ 192k!)
-  osc1.frequency.value = x * 95 + 22200
-  // console.log(osc1.frequency.value)
+const oldRange = 127 - 0 // MIDI range
+
+function amFreq(x) {
+  // logarathmic knob
+  const min = 0
+  const max = 127
+  const logMin = Math.log(1)
+  const logMax = Math.log(5000)
+  const scale = (logMax - logMin) / (max - min)
+  let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
+  amFreqDial.value = newValue
+  osc1.frequency.value = newValue
+  console.log(osc1.frequency.value)
 }
 
-function knob2(x) {
-  dial2.value = x * 100 + 22000 // x * 200 if 96k (check for quality @ 192k!)
-  osc2.frequency.value = x * 100 + 22000
-  // console.log(osc2.frequency.value)
+function amTune(x) {
+  const newValue = (x * 7.874).toFixed(8)
+  amTuneDial.value = newValue
+  osc1.detune.value = newValue
+  console.log(osc1.detune.value)
 }
 
-// Oscillator amps
-function amp1(x) {
-  const oldRange = 127 - 0
-  const newRange = 12 - (-12)
-  const newValue = ((x - 127) * newRange) / oldRange + 12
-  fader1.value = newValue.toFixed(8)
-  oscAmp1.volume.value = newValue.toFixed(8)
-  // console.log(oscAmp1.volume.value)
-}
-
-function amp2(x) {
-  const oldRange = 127 - 0
-  const newRange = 12 - (-12)
-  const newValue = ((x - 127) * newRange) / oldRange + 12
-  fader2.value = newValue.toFixed(8)
-  oscAmp2.volume.value = newValue.toFixed(8)
-  // console.log(oscAmp2.volume.value)
+function fmFreq(x) {
+  // logarathmic knob
+  const min = 0
+  const max = 127
+  const logMin = Math.log(1)
+  const logMax = Math.log(5000)
+  const scale = (logMax - logMin) / (max - min)
+  let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
+  fmFreqDial.value = newValue
+  osc2.frequency.value = newValue
+  console.log(osc2.frequency.value)
 }
 
 
-// Feedback Amps
-function amp3(x) {
-  const oldRange = 127 - 0
-  const newRange = 0 - (-24)
-  const newValue = ((x - 127) * newRange) / oldRange
-  fader3.value = newValue.toFixed(8)
-  tapeDelayL2Amp.volume.value = newValue.toFixed(8)
-  // console.log(tapeDelayL2Amp.volume.value)
+function fmMod(x) {
+  const newValue = (x * .7874).toFixed(8)
+  fmModDial.value = newValue
+  osc2.modulationIndex.value = newValue
+  console.log(osc2.modulationIndex.value)
 }
 
-function amp4(x) {
-  const oldRange = 127 - 0
-  const newRange = 0 - (-24)
-  const newValue = ((x - 127) * newRange) / oldRange
-  fader4.value = newValue.toFixed(8)
-  tapeDelayRAmp.volume.value = newValue.toFixed(8)
-  // console.log(tapeDelayRAmp.volume.value)
-}
 
-// Input Gain
-function amp5(x) {
-  const oldRange = 127 - 0
+
+// Input Gain - Slider 1
+function userIn(x) {
   const newRange = 12 - (-24)
   const newValue = ((x - 127) * newRange) / oldRange + 12
-  fader5.value = newValue.toFixed(8)
+  userVol.value = newValue.toFixed(8)
   userAmp.volume.value = newValue.toFixed(8)
   console.log(userAmp.volume.value)
 }
 
-function oscOn(x) {
-  if (x === 127) {
-    power.state = true
-  } else { power.state = false }
+// AM Osc Harmonicity - Slider 2
+function amHarm(x) {
+  const newValue = (x * 0.023622).toFixed(8)
+  amHarmSlider.value = newValue
+  osc1.harmonicity.value = newValue
+  console.log(osc1.harmonicity.value)
 }
+
+// FM Osc Harmonicity - Slider 4
+function fmHarm(x) {
+  const newValue = (x * 0.023622).toFixed(8)
+  fmHarmSlider.value = newValue
+  osc2.harmonicity.value = newValue
+  console.log(osc2.harmonicity.value)
+}
+
+// // Oscillator amps
+// function amp1(x) {
+//   const newRange = 12 - (-12)
+//   const newValue = ((x - 127) * newRange) / oldRange + 12
+//   fader1.value = newValue.toFixed(8)
+//   oscAmp1.volume.value = newValue.toFixed(8)
+//   // console.log(oscAmp1.volume.value)
+// }
+
+// function amp2(x) {
+//   const newRange = 12 - (-12)
+//   const newValue = ((x - 127) * newRange) / oldRange + 12
+//   fader2.value = newValue.toFixed(8)
+//   oscAmp2.volume.value = newValue.toFixed(8)
+//   // console.log(oscAmp2.volume.value)
+// }
+
+
+// Feedback Amps
+function crossCouple(x) {
+  const newRange = 12 - (-24)
+  const newValue = ((x - 127) * newRange) / oldRange
+  crossCoupleSlider.value = newValue.toFixed(8)
+  tapeDelayL2Amp.volume.value = newValue.toFixed(8)
+  // console.log(tapeDelayL2Amp.volume.value)
+}
+
+function rightToLeft(x) {
+  const newRange = 12 - (-24)
+  const newValue = ((x - 127) * newRange) / oldRange
+  delayDepthSlider.value = newValue.toFixed(8)
+  tapeDelayRAmp.volume.value = newValue.toFixed(8)
+  // console.log(tapeDelayRAmp.volume.value)
+}
+
 
 function inputOn(x) {
   if (x === 127) {
     inputSwitch.state = true
   } else { inputSwitch.state = false }
+}
+
+function amFmSwitch(x) {
+  if (x === 127) {
+    modType.state = true
+  } else { modType.state = false }
 }
