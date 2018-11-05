@@ -1,6 +1,7 @@
 // Interface setup
 
 
+
 // User Input/Microphone ON/OFF
 const inputSwitch = new Nexus.Toggle('#input-switch', {
   'size': [40, 20],
