@@ -1,5 +1,4 @@
 // MIDI setup
-// add
 
 let midi;
 let data;
@@ -89,10 +88,43 @@ const onMIDIMessage = message => {
     case 27: // korg button 5A
       noiseFilterSwitch(velocity)
       break;
+  }
 
+  switch(type) {
+    case 144: // note on
+      noteOn(note, velocity)
+    case 160: // note on (louder)    
+      noteOn(note, velocity)  
+      break;
+    case 128:
+      noteOff(note, velocity) // note off
+      break;
   }
   // console.log('MIDI data', data) // Reads all MIDI data
+  // console.log('MIDI data', note)
 }
+
+function frequencyFromNoteNumber(note) {
+  return 440 * Math.pow(2, (note - 69) / 12)
+}
+
+let context = new AudioContext();
+
+function noteOn(midiNote, velocity) {
+  osc1.frequency.value = frequencyFromNoteNumber(midiNote)
+  oscAmp1.volume.setTargetAtTime(-12, context.currentTime, 0.015) 
+  osc2.frequency.value = frequencyFromNoteNumber(midiNote)
+  oscAmp2.volume.setTargetAtTime(-12, context.currentTime, 0.015) 
+  
+}
+
+
+
+function noteOff(midiNote, velocity) {
+    oscAmp1.volume.setTargetAtTime(-66, context.currentTime, 0.015) 
+    oscAmp2.volume.setTargetAtTime(-66, context.currentTime, 0.015)
+}
+
 
 const oldRange = 127 - 0 // MIDI range
 
@@ -185,18 +217,18 @@ function fmHarm(x) {
 // Feedback Amps
 function crossCouple(x) {
   const newRange = 12 - (-24)
-  const newValue = ((x - 127) * newRange) / oldRange
+  const newValue = ((x - 127) * newRange) / oldRange + 12
   crossCoupleSlider.value = newValue.toFixed(8)
   tapeDelayL2Amp.volume.value = newValue.toFixed(8)
-  // console.log(tapeDelayL2Amp.volume.value)
+  console.log(tapeDelayL2Amp.volume.value)
 }
 
 function rightToLeft(x) {
   const newRange = 12 - (-24)
-  const newValue = ((x - 127) * newRange) / oldRange
+  const newValue = ((x - 127) * newRange) / oldRange + 12
   delayDepthSlider.value = newValue.toFixed(8)
   tapeDelayRAmp.volume.value = newValue.toFixed(8)
-  // console.log(tapeDelayRAmp.volume.value)
+  console.log(tapeDelayRAmp.volume.value)
 }
 
 
@@ -250,3 +282,8 @@ function noiseDepth(x) {
   noiseFilter.depth.value = newValue
   console.log(noiseFilter.depth.value)
 }
+
+
+
+
+

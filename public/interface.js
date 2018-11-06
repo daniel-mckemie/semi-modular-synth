@@ -1,5 +1,4 @@
 // Interface setup
-// add
 
 
 // User Input/Microphone ON/OFF
@@ -14,7 +13,19 @@ inputSwitch.on('change', function(x) {
   } else { userInput.close() }
 })
 
+// Input Gain
+const userVol = new Nexus.Slider('#user-vol', {
+  'size': [150, 20],
+  'mode': 'relative', // 'relative' or 'absolute'
+  'min': -24,
+  'max': 12,
+  'step': 0,
+  'value': -24
+});
 
+userVol.on('change', function(x) {
+  userAmp.volume.value = x
+})
 
 // AM Oscillator controls
 const amFreqDial = new Nexus.Dial('#am-freq-dial', {
@@ -198,21 +209,6 @@ noiseDepthSlider.on('change', function(x) {
   noiseFilter.depth.value = x
 })
 
-
-// Input Gain
-const userVol = new Nexus.Slider('#user-vol', {
-  'size': [150, 20],
-  'mode': 'relative', // 'relative' or 'absolute'
-  'min': -24,
-  'max': 12,
-  'step': 0,
-  'value': -24
-});
-
-userVol.on('change', function(x) {
-  userAmp.volume.value = x
-})
-
 // Feedback depth controls
 
 // For L channel input coupled back
@@ -243,5 +239,3 @@ const delayDepthSlider = new Nexus.Slider('#delay-depth-slider', {
 delayDepthSlider.on('change', function(x) {
   tapeDelayRAmp.volume.value = x
 })
-
-

@@ -1,10 +1,20 @@
-.complex-osc {
+.inputs {
   background-color: #dcdcdc;
+}
+
+.complex-osc {
+  background-color: #c0c0c0;
+}
+
+.noise-source {
+  background-color: #808080;
+}
+
+.feedback-controls {
+  background-color: #778899;
 }
 
 audio {
   display: block;
   margin: 1rem auto;
 }
-
-/*add*/

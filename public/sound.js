@@ -1,4 +1,3 @@
-// add
 // (Source --> Effects --> Output)
 
 // Cross coupling feedback environment...
@@ -8,7 +7,7 @@
 // Record output
 console.clear();
 
-const audio = document.querySelector('audio');
+const audio = document.getElementsByTagName('audio');
 const actx = Tone.context;
 const dest = actx.createMediaStreamDestination();
 const recorder = new MediaRecorder(dest.stream);
@@ -16,14 +15,16 @@ const recorder = new MediaRecorder(dest.stream);
 const chunks = [];
 
 
-document.getElementById('record-button')
-.addEventListener('click', function() {
+const recButton = document.getElementById('record-button')
+recButton.addEventListener('click', function() {
+  recButton.style.backgroundColor = "red";
   Tone.Transport.start();
   recorder.start();
 });
 
 document.getElementById('stop-button')
 .addEventListener('click', function() {
+  recButton.style.backgroundColor = "#ffffff";
   recorder.stop();
   Tone.Transport.stop();
 });
