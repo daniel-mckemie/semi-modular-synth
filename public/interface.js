@@ -3,7 +3,6 @@
 
 // User Input/Microphone ON/OFF
 const inputSwitch = new Nexus.Toggle('#input-switch', {
-  'size': [40, 20],
   'state': false
 })
 
@@ -14,8 +13,7 @@ inputSwitch.on('change', function(x) {
 })
 
 // Input Gain
-const userVol = new Nexus.Slider('#user-vol', {
-  'size': [150, 20],
+const userVol = new Nexus.Slider('#user-vol-slider', {
   'mode': 'relative', // 'relative' or 'absolute'
   'min': -24,
   'max': 12,
@@ -29,7 +27,6 @@ userVol.on('change', function(x) {
 
 // AM Oscillator controls
 const amFreqDial = new Nexus.Dial('#am-freq-dial', {
-  'size': [50, 50],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 0,
@@ -43,7 +40,6 @@ amFreqDial.on('change', function(x) {
 })
 
 const amTuneDial = new Nexus.Dial('#am-tune-dial', {
-  'size': [50, 50],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 0,
@@ -57,7 +53,6 @@ amTuneDial.on('change', function(x) {
 })
 
 const amHarmSlider = new Nexus.Slider('#am-harm-slider', {
-  'size': [150, 20],
   'mode': 'relative', // 'relative' or 'absolute'
   'min': 0,
   'max': 3,
@@ -71,7 +66,6 @@ amHarmSlider.on('change', function(x) {
 
 // Switch AM Mod wave
 const amModSwitch = new Nexus.Toggle('#am-mod-switch', {
-  'size': [40, 20],
   'state': false
 })
 
@@ -86,7 +80,6 @@ amModSwitch.on('change', function(x) {
 
 // Switch from AM or FM Synthesis
 const modType = new Nexus.Toggle('#mod-type', {
-  'size': [40, 20],
   'state': false
 })
 
@@ -106,7 +99,6 @@ modType.on('change', function(x) {
 
 // FM Oscillator controls
 const fmFreqDial = new Nexus.Dial('#fm-freq-dial', {
-  'size': [50, 50],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 0,
@@ -120,7 +112,6 @@ fmFreqDial.on('change', function(x) {
 })
 
 const fmModDial = new Nexus.Dial('#fm-mod-index', {
-  'size': [50, 50],
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 0,
@@ -134,7 +125,6 @@ fmModDial.on('change', function(x) {
 })
 
 const fmHarmSlider = new Nexus.Slider('#fm-harm-slider', {
-  'size': [150, 20],
   'mode': 'relative', // 'relative' or 'absolute'
   'min': 0,
   'max': 3,
@@ -148,7 +138,6 @@ fmHarmSlider.on('change', function(x) {
 
 // Switch FM Mod wave
 const fmModSwitch = new Nexus.Toggle('#fm-mod-switch', {
-  'size': [40, 20],
   'state': false
 })
 
@@ -165,7 +154,6 @@ fmModSwitch.on('change', function(x) {
 
 // Power noise/filter on
 const filterSwitch = new Nexus.Toggle('#filter-switch', {
-  'size': [40, 20],
   'state': false
 })
 
@@ -182,8 +170,7 @@ filterSwitch.on('change', function(x) {
 })
 
 // FM Oscillator controls
-const noiseFreqDial = new Nexus.Dial('#noise-freq-dial', {
-  'size': [50, 50],
+const noiseFreqSlider = new Nexus.Slider('#noise-freq-slider', {
   'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 0,
@@ -192,12 +179,11 @@ const noiseFreqDial = new Nexus.Dial('#noise-freq-dial', {
   'value': 0
 })
 
-noiseFreqDial.on('change', function(x) {
+noiseFreqSlider.on('change', function(x) {
   noiseFilter.frequency.value = x
 })
 
 const noiseDepthSlider = new Nexus.Slider('#noise-depth-slider', {
-  'size': [150, 20],
   'mode': 'relative', // 'relative' or 'absolute'
   'min': 0,
   'max': 1,
@@ -213,7 +199,6 @@ noiseDepthSlider.on('change', function(x) {
 
 // For L channel input coupled back
 const crossCoupleSlider = new Nexus.Slider('#cross-couple-slider', {
-  'size': [150, 20],
   'mode': 'relative', // 'relative' or 'absolute'
   'min': -24,
   'max': 12,
@@ -228,7 +213,6 @@ crossCoupleSlider.on('change', function(x) {
 
 // For input into L from delayed R
 const delayDepthSlider = new Nexus.Slider('#delay-depth-slider', {
-  'size': [150, 20],
   'mode': 'relative', // 'relative' or 'absolute'
   'min': -24,
   'max': 12,

@@ -9,28 +9,24 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <p class="mod-title">Tape Delay Feedback System =></p>
+  </nav>
   <div class="container">
-    <div class="row">
-      <audio controls></audio>
-      <div class="col" id="controls">
-        <button class="col" id="record-button">Record</button>
-        <button class="col" id="stop-button">Stop</button>
-      </div>
-      <div class="col"></div>
-    </div>
     <!-- Input switches -->
     <div class="inputs">
+      <p class="mod-title">User Input</p>
       <div class="row">
         <div class="col">
           <div id="input-switch"></div>
         </div>
         <div class="col">
-          <div id="user-vol"></div>
+          <div id="user-vol-slider"></div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="badge badge-success">Input Switch</div>
+          <div class="badge badge-success">OFF/ON</div>
         </div>
         <div class="col">
           <div class="badge badge-success">Input Volume</div>
@@ -39,83 +35,61 @@
     </div>
     <!-- Complex Oscillator -->
     <div class="complex-osc">
+      <p class="mod-title"> Waveform Generator</p>
       <div class="row">
-        <div class="col">
-          <div id="am-freq-dial"></div>
-        </div>
-        <div class="col">
-          <div id="am-tune-dial"></div>
-        </div>
-        <div class="col">
-          <div id="mod-type"></div>
-        </div>
-        <div class="col">
-          <div id="fm-freq-dial"></div>
-        </div>
-        <div class="col">
-          <div id="fm-mod-index"></div>
-        </div>
+        <div class="col-5"></div>
+        <div class="badge badge-warning">AM ---- FM</div>
       </div>
       <div class="row">
+        <div class="col-5"></div>
+        <div id="mod-type"></div>
+      </div>
+      <div class="row" id="top-osc-row">
         <div class="col">
+          <div id="am-freq-dial"></div>
           <div class="badge badge-primary">Frequency</div>
         </div>
         <div class="col">
+          <div id="am-tune-dial"></div>
           <div class="badge badge-primary">Fine Tune</div>
         </div>
         <div class="col">
-          <div class="badge badge-warning">AM ---- FM</div>
-        </div>
-        <div class="col">
+          <div id="fm-freq-dial"></div>
           <div class="badge badge-danger">Frequency</div>
         </div>
         <div class="col">
+          <div id="fm-mod-index"></div>
           <div class="badge badge-danger">Depth</div>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div id="am-harm-slider"></div>
-        </div>
-        <div class="col">
-          <div id="am-mod-switch"></div>
-        </div>
-        <div class="col">
-          <div></div>
-        </div>
-        <div class="col">
-          <div id="fm-harm-slider"></div>
-        </div>
-        <div class="col">
-          <div id="fm-mod-switch"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
           <div class="badge badge-primary">Harmonicity</div>
         </div>
         <div class="col">
-          <div class="badge badge-primary">Squ ---- Saw</div>
+          <div id="am-mod-switch"></div>
+          <div class="badge badge-primary">Squ <br>----<br> Saw</div>
         </div>
         <div class="col">
-          <div></div>
-        </div>
-        <div class="col">
+          <div id="fm-harm-slider"></div>
           <div class="badge badge-danger">Harmonicity</div>
         </div>
         <div class="col">
-          <div class="badge badge-danger">Squ ---- Saw</div>
+          <div id="fm-mod-switch"></div>
+          <div class="badge badge-danger">Squ <br>----<br> Saw</div>
         </div>
       </div>
     </div>
     <!-- Noise/Filter Source -->
     <div class="noise-source">
+      <p class="mod-title">Noise Source</p>
       <div class="row">
         <div class="col">
           <div id="filter-switch"></div>
         </div>
         <div class="col">
-          <div id="noise-freq-dial"></div>
+          <div id="noise-freq-slider"></div>
         </div>
         <div class="col">
           <div id="noise-depth-slider"></div>
@@ -123,10 +97,10 @@
       </div>
       <div class="row">
         <div class="col">
-          <div class="badge badge-secondary">Filter OFF/ON</div>
+          <div class="badge badge-secondary">OFF/ON</div>
         </div>
         <div class="col">
-          <div class="badge badge-secondary">Frequency</div>
+          <div class="badge badge-secondary">Cutoff</div>
         </div>
         <div class="col">
           <div class="badge badge-secondary">Depth</div>
@@ -135,20 +109,27 @@
     </div>
     <!-- Feedback Controls -->
     <div class="feedback-controls">
+      <p class="mod-title">Tape Delay Feedback</p>
       <div class="row">
         <div class="col">
           <div id="cross-couple-slider"></div>
-        </div>
-        <div class="col">
-          <div id="delay-depth-slider"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
           <div class="badge badge-dark">Cross Coupling Depth</div>
         </div>
         <div class="col">
+          <div id="delay-depth-slider"></div>
           <div class="badge badge-dark">R to L Depth</div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- Audio Recorder -->
+    <div class="audio-controls">
+      <p class="mod-title">Audio Recorder</p>
+      <div class="row">
+        <audio controls></audio>
+        <div class="col" id="controls">
+          <button id="record-button">REC</button>
+          <button id="stop-button">STOP</button>
         </div>
       </div>
     </div>

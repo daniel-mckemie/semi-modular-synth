@@ -109,6 +109,7 @@ function frequencyFromNoteNumber(note) {
 }
 
 let context = new AudioContext();
+console.clear()
 
 function noteOn(midiNote, velocity) {
   osc1.frequency.value = frequencyFromNoteNumber(midiNote)
@@ -270,7 +271,7 @@ function noiseFreq(x) {
   const logMax = Math.log(40)
   const scale = (logMax - logMin) / (max - min)
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
-  noiseFreqDial.value = newValue
+  noiseFreqSlider.value = newValue
   noiseFilter.frequency.value = newValue
   console.log(noiseFilter.frequency.value)
 }

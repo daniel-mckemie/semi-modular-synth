@@ -1,20 +1,93 @@
-.inputs {
-  background-color: #dcdcdc;
-}
-
-.complex-osc {
-  background-color: #c0c0c0;
-}
-
-.noise-source {
-  background-color: #808080;
-}
-
-.feedback-controls {
-  background-color: #778899;
+.container {
+	display: flex;
+	flex-direction: column;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	padding-top: 2rem;
 }
 
 audio {
   display: block;
   margin: 1rem auto;
 }
+
+.inputs {
+  border: groove;
+  background-image: url(./images/chrome1.jpg);
+  padding: 1rem;
+}
+
+.complex-osc {
+	border: groove;
+	background-image: url(./images/chrome2.jpg);
+  padding: 1rem;
+}
+
+.noise-source {
+	border: groove;
+	background-image: url(./images/chrome3.jpg);
+  padding: 1em;
+}
+
+.feedback-controls {
+	border: groove;
+	background-image: url(./images/chrome4.jpg);
+  padding: 1em;
+}
+
+.audio-controls {
+	border: groove;
+	background-image: url(./images/chrome5.jpg);
+  padding: 1em;
+}
+
+.mod-title {
+	font-family: futura;
+}
+
+#top-osc-row {
+	padding-bottom: 2em;
+}
+
+#input-switch,
+#am-mod-switch,
+#mod-type,
+#fm-mod-switch,
+#filter-switch
+
+{
+	width: 3em;
+	height: 1em;
+}
+
+#am-freq-dial,
+#am-tune-dial,
+#fm-freq-dial,
+#fm-mod-index
+{
+	width: 4em;
+	height: 4em;
+}
+
+#user-vol-slider,
+#am-harm-slider,
+#fm-harm-slider,
+#noise-freq-slider,
+#noise-depth-slider,
+#cross-couple-slider,
+#delay-depth-slider
+{
+	width: 5em;
+	height: 1em;
+
+}
+
+
+
+
+#controls {
+	padding-top: 2em;
+	padding-left: 2em;
+}
+
+
