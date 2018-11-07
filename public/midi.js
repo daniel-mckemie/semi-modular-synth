@@ -183,7 +183,7 @@ function userIn(x) {
 
 // AM Osc Harmonicity - Slider 2
 function amHarm(x) {
-  const newValue = (x * 0.023622).toFixed(8)
+  const newValue = (x * 0.007874).toFixed(16)
   amHarmSlider.value = newValue
   osc1.harmonicity.value = newValue
   console.log(osc1.harmonicity.value)
@@ -191,28 +191,11 @@ function amHarm(x) {
 
 // FM Osc Harmonicity - Slider 4
 function fmHarm(x) {
-  const newValue = (x * 0.023622).toFixed(8)
+  const newValue = (x * 0.007974).toFixed(16)
   fmHarmSlider.value = newValue
   osc2.harmonicity.value = newValue
   console.log(osc2.harmonicity.value)
 }
-
-// // Oscillator amps
-// function amp1(x) {
-//   const newRange = 12 - (-12)
-//   const newValue = ((x - 127) * newRange) / oldRange + 12
-//   fader1.value = newValue.toFixed(8)
-//   oscAmp1.volume.value = newValue.toFixed(8)
-//   // console.log(oscAmp1.volume.value)
-// }
-
-// function amp2(x) {
-//   const newRange = 12 - (-12)
-//   const newValue = ((x - 127) * newRange) / oldRange + 12
-//   fader2.value = newValue.toFixed(8)
-//   oscAmp2.volume.value = newValue.toFixed(8)
-//   // console.log(oscAmp2.volume.value)
-// }
 
 
 // Feedback Amps

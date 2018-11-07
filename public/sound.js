@@ -36,7 +36,7 @@ recorder.onstop = evt => {
 };
 
 
-
+let bypass = new Tone.Panner(0).toMaster()
 let rightChannel = new Tone.Panner(1).connect(dest).toMaster()
 
 // Delay of second Left channel to route out of Right channel
@@ -70,19 +70,19 @@ let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel)
 // internal computer volume must be set to 50%
 const oscAmp1 = new Tone.Volume({
   volume: -12,
-}).connect(machineReverb)
+}).connect(machineReverb);
 
 const oscAmp2 = new Tone.Volume({
   volume: -12,
-}).connect(machineReverb)
+}).connect(machineReverb);
 
 const noiseAmp = new Tone.Volume({
-  volume: -12,
-}).connect(machineReverb)
+  volume: -6,
+}).connect(machineReverb);
 
 const userAmp = new Tone.Volume({
   volume: -24,
-}).connect(machineReverb)
+}).connect(machineReverb);
 
 // Oscillators
 const osc1 = new Tone.AMOscillator({
@@ -102,7 +102,7 @@ const osc2 = new Tone.FMOscillator({
 //Noise Filter
 const noise = new Tone.Noise('white')
 const noiseFilter = new Tone.AutoFilter({
-  frequency: 20,
+  frequency: 0,
   depth: 0,
   baseFrequency: 200
 }).connect(noiseAmp)

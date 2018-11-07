@@ -55,7 +55,7 @@ amTuneDial.on('change', function(x) {
 const amHarmSlider = new Nexus.Slider('#am-harm-slider', {
   'mode': 'relative', // 'relative' or 'absolute'
   'min': 0,
-  'max': 3,
+  'max': 1,
   'step': 0,
   'value': 0
 })
@@ -71,9 +71,13 @@ const amModSwitch = new Nexus.Toggle('#am-mod-switch', {
 
 amModSwitch.on('change', function(x) {
   if (x === true) {
-    osc1.modulationType.value = 'sawtooth'
+    osc1.stop();
+    osc1.modulationType = 'sawtooth';
+    osc1.start();
   } else {
-    osc1.modulationType.value = 'square'
+    osc1.stop();
+    osc1.modulationType = 'square';
+    osc1.start();
   }
 })
 
@@ -127,7 +131,7 @@ fmModDial.on('change', function(x) {
 const fmHarmSlider = new Nexus.Slider('#fm-harm-slider', {
   'mode': 'relative', // 'relative' or 'absolute'
   'min': 0,
-  'max': 3,
+  'max': 1,
   'step': 0,
   'value': 0
 })
@@ -143,10 +147,14 @@ const fmModSwitch = new Nexus.Toggle('#fm-mod-switch', {
 
 fmModSwitch.on('change', function(x) {
   if (x === true) {
-    osc2.modulationType = 'sawtooth'
+    osc2.stop();
+    osc2.modulationType = 'sawtooth';
+    osc2.start();
     console.log(osc2.modulationType)
   } else {
-    osc2.modulationType = 'square'
+    osc2.stop();
+    osc2.modulationType = 'square';
+    osc2.start();
     console.log(osc2.modulationType)
   }
 })
