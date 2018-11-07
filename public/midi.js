@@ -134,8 +134,8 @@ function noteOn(midiNote, velocity) {
 
 
 function noteOff(midiNote, velocity) {
-  oscAmp1.volume.setTargetAtTime(-66, context.currentTime, 0.015)
-  oscAmp2.volume.setTargetAtTime(-66, context.currentTime, 0.015)
+  oscAmp1.volume.setTargetAtTime(-88, context.currentTime, 0.015)
+  oscAmp2.volume.setTargetAtTime(-88, context.currentTime, 0.015)
 }
 
 
@@ -150,7 +150,7 @@ function amFreq(x) {
   const scale = (logMax - logMin) / (max - min)
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   amFreqDial.value = newValue
-  osc1.frequency.value = newValue
+  osc1.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
   console.log(osc1.frequency.value)
 }
 
@@ -170,7 +170,7 @@ function fmFreq(x) {
   const scale = (logMax - logMin) / (max - min)
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   fmFreqDial.value = newValue
-  osc2.frequency.value = newValue
+  osc1.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
   console.log(osc2.frequency.value)
 }
 
