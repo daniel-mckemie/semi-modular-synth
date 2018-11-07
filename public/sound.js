@@ -81,9 +81,16 @@ const noiseAmp = new Tone.Volume({
   volume: -6,
 }).connect(machineReverb);
 
+// Connect direct user input or microphone, chosen
+// input based on global computer specs...
+
 const userAmp = new Tone.Volume({
   volume: -24,
 }).connect(machineReverb);
+
+const userInput = new Tone.UserMedia({
+  volume: -12
+}).connect(userAmp)
 
 // Oscillators
 const osc1 = new Tone.AMOscillator({
@@ -110,19 +117,20 @@ const noiseFilter = new Tone.AutoFilter({
 noise.connect(noiseFilter);
 
 //ADSR Envelope
-const env = new Tone.Envelope({
-  attack: 0.01,
-  decay: 0.01,
-  sustain: 1,
-  release: 0.01
-}).connect(oscAmp1, oscAmp2)
+// const env = new Tone.Envelope({
+//   attack: 0.01,
+//   decay: 0.01,
+//   sustain: 1,
+//   release: 0.01
+// }).connect(oscAmp1, oscAmp2)
 
 
 
-// Connect direct user input or microphone, chosen
-// input based on global computer specs...
-const userInput = new Tone.UserMedia({
-  volume: -12
-})
 
-userInput.connect(userAmp);
+
+
+
+
+
+
+

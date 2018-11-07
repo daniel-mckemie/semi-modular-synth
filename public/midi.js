@@ -170,7 +170,7 @@ function fmFreq(x) {
   const scale = (logMax - logMin) / (max - min)
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   fmFreqDial.value = newValue
-  osc1.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
+  osc2.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
   console.log(osc2.frequency.value)
 }
 
