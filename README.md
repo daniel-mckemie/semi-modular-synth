@@ -23,7 +23,26 @@ The delay system is a digital replica of one constructed by Pauline Oliveros, wi
 This instrument is MIDI compatabile via the Web MIDI API (currently only available in Chrome).  It is a plan to enable MIDI assignments, but it is currently not available.  If you would like to attach a MIDI controller, these are the following CC values if you would like to edit your controller accordingly.  (Pitch and note on/off are standard)
 
 Values: 
-TBD
+- CC 2 - Input Volume (User Input)
+- CC 3 - AM Harmonicity (blue label)
+- CC 5 - FM Harmonicity (red label)
+- CC 6 - Cutoff (Noise Source)
+- CC 8 - Depth (Noise Source)
+- CC 9 - Cross Coupling Depth (T-D Feedback)
+- CC 12 - R to L Depth (T-D Feedback)
+- CC 14 - AM Frequency (blue label)
+- CC 15 - AM Fine Tune 
+- CC 16 - FM Frequency (red label) 
+- CC 17 - FM Depth
+- CC 18 - Attack (not available)
+- CC 19 - Decay (not available)
+- CC 20 - Sustain (not available)
+- CC 21 - Release (not available)
+- CC 24 - AM Squ ---- Saw (blue label)
+- CC 25 - AM ---- FM
+- CC 26 - FM Squ ---- Saw (red label)
+- CC 27 - OFF/ON (Noise Source)
+- CC 33 - OFF/ON (User Input)
 
 
 **Mobile Device Information**

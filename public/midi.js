@@ -120,7 +120,6 @@ function frequencyFromNoteNumber(note) {
   return 440 * Math.pow(2, (note - 69) / 12)
 }
 
-let context = new AudioContext();
 console.clear()
 
 function noteOn(midiNote, velocity) {
