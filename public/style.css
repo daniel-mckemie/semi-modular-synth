@@ -45,8 +45,13 @@ audio {
 	font-family: futura;
 }
 
-#top-osc-row {
+#top-osc-row,
+{
 	padding-bottom: 2em;
+}
+
+#adsr {
+	padding-top: 2em
 }
 
 #input-switch,
@@ -79,9 +84,17 @@ audio {
 {
 	width: 5em;
 	height: 1em;
-
 }
 
+#attack-slider, 
+#decay-slider,
+#sustain-slider,
+#release-slider
+{
+	width: 1em;
+	height: 5em;
+
+}
 
 
 

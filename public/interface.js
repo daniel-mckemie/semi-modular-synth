@@ -177,9 +177,8 @@ filterSwitch.on('change', function(x) {
   }
 })
 
-// FM Oscillator controls
+// Noise controls
 const noiseFreqSlider = new Nexus.Slider('#noise-freq-slider', {
-  'interaction': 'radial', // "radial", "vertical", or "horizontal"
   'mode': 'relative', // "absolute" or "relative"
   'min': 0,
   'max': 40,
@@ -203,9 +202,60 @@ noiseDepthSlider.on('change', function(x) {
   noiseFilter.depth.value = x
 })
 
+
+// ADSR controls
+const attackSlider = new Nexus.Slider('#attack-slider', {
+  'mode': 'relative', // "absolute" or "relative"
+  'min': 0.01,
+  'max': 2,
+  'step': 0,
+  'value': 0
+})
+
+attackSlider.on('change', function(x) {
+  env.attack = x
+})
+
+const decaySlider = new Nexus.Slider('#decay-slider', {
+  'mode': 'relative', // "absolute" or "relative"
+  'min': 0.01,
+  'max': 2,
+  'step': 0,
+  'value': 0
+})
+
+decaySlider.on('change', function(x) {
+  env.decay = x
+})
+
+const sustainSlider = new Nexus.Slider('#sustain-slider', {
+  'mode': 'relative', // "absolute" or "relative"
+  'min': 0.01,
+  'max': 2,
+  'step': 0,
+  'value': 0
+})
+
+sustainSlider.on('change', function(x) {
+  env.sustain = x
+})
+
+const releaseSlider = new Nexus.Slider('#release-slider', {
+  'mode': 'relative', // "absolute" or "relative"
+  'min': 0.01,
+  'max': 2,
+  'step': 0,
+  'value': 0
+})
+
+releaseSlider.on('change', function(x) {
+  env.release = x
+})
+
+
 // Feedback depth controls
 
-// For L channel input coupled back
+//L channel input coupled back
 const crossCoupleSlider = new Nexus.Slider('#cross-couple-slider', {
   'mode': 'relative', // 'relative' or 'absolute'
   'min': -24,
@@ -219,7 +269,7 @@ crossCoupleSlider.on('change', function(x) {
 })
 
 
-// For input into L from delayed R
+//Input into L from delayed R
 const delayDepthSlider = new Nexus.Slider('#delay-depth-slider', {
   'mode': 'relative', // 'relative' or 'absolute'
   'min': -24,

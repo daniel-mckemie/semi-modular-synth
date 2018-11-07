@@ -68,6 +68,7 @@ let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel)
 // Oscillator amplitudes...In order for these to 
 // read at an accurate scale of -12 to 12, the 
 // internal computer volume must be set to 50%
+
 const oscAmp1 = new Tone.Volume({
   volume: -12,
 }).connect(machineReverb);
@@ -106,7 +107,17 @@ const noiseFilter = new Tone.AutoFilter({
   depth: 0,
   baseFrequency: 200
 }).connect(noiseAmp)
-noise.connect(noiseFilter)
+noise.connect(noiseFilter);
+
+//ADSR Envelope
+const env = new Tone.Envelope({
+  attack: 0.01,
+  decay: 0.01,
+  sustain: 1,
+  release: 0.01
+}).connect(oscAmp1, oscAmp2)
+
+
 
 // Connect direct user input or microphone, chosen
 // input based on global computer specs...

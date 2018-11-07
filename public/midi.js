@@ -53,7 +53,16 @@ const onMIDIMessage = message => {
       fmMod(velocity)
       break;
     case 18:
-      noiseFreq(velocity)
+      att(velocity)
+      break;
+    case 19:
+      dec(velocity)
+      break;
+    case 20:
+      sus(velocity)
+      break;
+    case 21:
+      rel(velocity)
       break;
     case 2: // korg slider 1
       userIn(velocity)
@@ -65,6 +74,9 @@ const onMIDIMessage = message => {
       fmHarm(velocity)
       break;
     case 6:
+      noiseFreq(velocity)
+      break;
+    case 8:
       noiseDepth(velocity)
       break;
     case 9: // korg slider 7
@@ -90,18 +102,18 @@ const onMIDIMessage = message => {
       break;
   }
 
-  switch(type) {
+  switch (type) {
     case 144: // note on
       noteOn(note, velocity)
     case 160: // note on (louder)    
-      noteOn(note, velocity)  
+      noteOn(note, velocity)
       break;
     case 128:
       noteOff(note, velocity) // note off
       break;
   }
   // console.log('MIDI data', data) // Reads all MIDI data
-  // console.log('MIDI data', note)
+  console.log('MIDI data', note)
 }
 
 function frequencyFromNoteNumber(note) {
@@ -113,17 +125,17 @@ console.clear()
 
 function noteOn(midiNote, velocity) {
   osc1.frequency.value = frequencyFromNoteNumber(midiNote)
-  oscAmp1.volume.setTargetAtTime(-12, context.currentTime, 0.015) 
+  oscAmp1.volume.setTargetAtTime(-12, context.currentTime, 0.015)
   osc2.frequency.value = frequencyFromNoteNumber(midiNote)
-  oscAmp2.volume.setTargetAtTime(-12, context.currentTime, 0.015) 
-  
+  oscAmp2.volume.setTargetAtTime(-12, context.currentTime, 0.015)
+
 }
 
 
 
 function noteOff(midiNote, velocity) {
-    oscAmp1.volume.setTargetAtTime(-66, context.currentTime, 0.015) 
-    oscAmp2.volume.setTargetAtTime(-66, context.currentTime, 0.015)
+  oscAmp1.volume.setTargetAtTime(-66, context.currentTime, 0.015)
+  oscAmp2.volume.setTargetAtTime(-66, context.currentTime, 0.015)
 }
 
 
@@ -266,6 +278,40 @@ function noiseDepth(x) {
   noiseFilter.depth.value = newValue
   console.log(noiseFilter.depth.value)
 }
+
+// ADSR Sliders
+function att(x) {
+  const newValue = (x * 0.015748 + 0.01).toFixed(16) 
+  attackSlider.value = newValue 
+  env.attack = newValue
+  console.log(env.attack)
+}
+
+function dec(x) {
+  const newValue = (x * 0.015748 + 0.01).toFixed(16) 
+  decaySlider.value = newValue 
+  env.decay = newValue
+  console.log(env.decay)
+}
+
+function sus(x) {
+  const newValue = (x * 0.0078 + 0.01).toFixed(16) 
+  sustainSlider.value = newValue 
+  env.sustain = newValue
+  console.log(env.sustain)
+}
+
+function rel(x) {
+  const newValue = (x * 0.015748 + 0.01).toFixed(16) 
+  releaseSlider.value = newValue 
+  env.release = newValue
+  console.log(env.release)
+}
+
+
+
+
+
 
 
 

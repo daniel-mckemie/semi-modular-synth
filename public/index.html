@@ -81,31 +81,47 @@
         </div>
       </div>
     </div>
-    <!-- Noise/Filter Source -->
+    <!-- Noise/Filter Source // ADSR Envelope -->
     <div class="noise-source">
       <p class="mod-title">Noise Source</p>
       <div class="row">
         <div class="col">
           <div id="filter-switch"></div>
+          <div class="badge badge-secondary">OFF/ON
+          </div>
         </div>
         <div class="col">
           <div id="noise-freq-slider"></div>
+          <div class="badge badge-secondary">Cutoff
+          </div>
         </div>
         <div class="col">
           <div id="noise-depth-slider"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="badge badge-secondary">OFF/ON</div>
-        </div>
-        <div class="col">
-          <div class="badge badge-secondary">Cutoff</div>
-        </div>
-        <div class="col">
           <div class="badge badge-secondary">Depth</div>
         </div>
       </div>
+      <div id="adsr">
+      <div class="mod-title"><del>ADSR Envelope</del> (unavailable)</div>
+      <div class="row">
+        <div class="col">
+          <div id="attack-slider"></div>
+          <div class="badge badge-secondary">A</div>
+        </div>
+        <div class="col">
+          <div id="decay-slider"></div>
+          <div class="badge badge-secondary">D</div>
+        </div>
+        <div class="col">
+          <div id="sustain-slider"></div>
+          <div class="badge badge-secondary">S</div>
+        </div>
+        <div class="col">
+          <div id="release-slider"></div>
+          <div class="badge badge-secondary">R</div>
+        </div>
+      </div>
+    </div>
+    
     </div>
     <!-- Feedback Controls -->
     <div class="feedback-controls">
@@ -120,19 +136,19 @@
           <div class="badge badge-dark">R to L Depth</div>
         </div>
       </div>
-      
     </div>
-    <!-- Audio Recorder -->
-    <div class="audio-controls">
-      <p class="mod-title">Audio Recorder</p>
-      <div class="row">
-        <audio controls></audio>
-        <div class="col" id="controls">
-          <button id="record-button">REC</button>
-          <button id="stop-button">STOP</button>
-        </div>
+  
+  <!-- Audio Recorder -->
+  <div class="audio-controls">
+    <p class="mod-title">Audio Recorder</p>
+    <div class="row">
+      <audio controls></audio>
+      <div class="col" id="controls">
+        <button id="record-button">REC</button>
+        <button id="stop-button">STOP</button>
       </div>
     </div>
+  </div>
   </div>
   <script src="sound.js"></script>
   <script src="interface.js"></script>

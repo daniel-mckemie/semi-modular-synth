@@ -19,3 +19,13 @@ The delay system is a digital replica of one constructed by Pauline Oliveros, wi
 - Lastly, it is suggested to let the system be itself.  Experimentation is key, but sometimes stepping away and letting things unfold is when magic can happen.  Remember, in feedback systems, not every action has an effect, and even the slightest action can have massive impacts.
 
 
+**MIDI Instructions/Maps**
+This instrument is MIDI compatabile via the Web MIDI API (currently only available in Chrome).  It is a plan to enable MIDI assignments, but it is currently not available.  If you would like to attach a MIDI controller, these are the following CC values if you would like to edit your controller accordingly.  (Pitch and note on/off are standard)
+
+Values: 
+TBD
+
+
+**Mobile Device Information**
+This currently does not work (or at least well) with mobile devices.  The goal of this was to explore the use of Chromebooks as musical environments, however I am seeing to implement a mobile friendly version in the future.
+
