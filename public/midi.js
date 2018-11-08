@@ -112,8 +112,8 @@ const onMIDIMessage = message => {
       noteOff(note, velocity) // note off
       break;
   }
-  // console.log('MIDI data', data) // Reads all MIDI data
-  console.log('MIDI data', note)
+  console.log('MIDI data', data) // Reads all MIDI data
+  // console.log('MIDI data', note)
 }
 
 function frequencyFromNoteNumber(note) {

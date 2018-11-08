@@ -36,7 +36,6 @@ recorder.onstop = evt => {
 };
 
 
-let bypass = new Tone.Panner(0).toMaster()
 let rightChannel = new Tone.Panner(1).connect(dest).toMaster()
 
 // Delay of second Left channel to route out of Right channel
@@ -60,8 +59,8 @@ const tapeDelayL2Amp = new Tone.Volume({
 }).connect(tapeDelayL2)
 
 let tapeDelayL = new Tone.Delay(4, 4).chain(rightChannel, tapeDelayL2Amp)
-
 let leftChannel = new Tone.Panner(-1).connect(tapeDelayL).connect(dest).toMaster()
+
 let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel)
 
 
