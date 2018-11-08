@@ -150,12 +150,12 @@ fmModSwitch.on('change', function(x) {
     osc2.stop();
     osc2.modulationType = 'sawtooth';
     osc2.start();
-    console.log(osc2.modulationType)
+    // console.log(osc2.modulationType)
   } else {
     osc2.stop();
     osc2.modulationType = 'square';
     osc2.start();
-    console.log(osc2.modulationType)
+    // console.log(osc2.modulationType)
   }
 })
 

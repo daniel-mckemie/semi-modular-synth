@@ -112,7 +112,7 @@ const onMIDIMessage = message => {
       noteOff(note, velocity) // note off
       break;
   }
-  console.log('MIDI data', data) // Reads all MIDI data
+  // console.log('MIDI data', data) // Reads all MIDI data
   // console.log('MIDI data', note)
 }
 
@@ -150,14 +150,14 @@ function amFreq(x) {
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   amFreqDial.value = newValue
   osc1.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
-  console.log(osc1.frequency.value)
+  // console.log(osc1.frequency.value)
 }
 
 function amTune(x) {
   const newValue = (x * 7.874).toFixed(8)
   amTuneDial.value = newValue
   osc1.detune.value = newValue
-  console.log(osc1.detune.value)
+  // console.log(osc1.detune.value)
 }
 
 function fmFreq(x) {
@@ -170,7 +170,7 @@ function fmFreq(x) {
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   fmFreqDial.value = newValue
   osc2.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
-  console.log(osc2.frequency.value)
+  // console.log(osc2.frequency.value)
 }
 
 
@@ -178,7 +178,7 @@ function fmMod(x) {
   const newValue = (x * .7874).toFixed(8)
   fmModDial.value = newValue
   osc2.modulationIndex.value = newValue
-  console.log(osc2.modulationIndex.value)
+  // console.log(osc2.modulationIndex.value)
 }
 
 
@@ -189,7 +189,7 @@ function userIn(x) {
   const newValue = ((x - 127) * newRange) / oldRange + 12
   userVol.value = newValue.toFixed(8)
   userAmp.volume.value = newValue.toFixed(8)
-  console.log(userAmp.volume.value)
+  // console.log(userAmp.volume.value)
 }
 
 // AM Osc Harmonicity - Slider 2
@@ -197,7 +197,7 @@ function amHarm(x) {
   const newValue = (x * 0.007874).toFixed(16)
   amHarmSlider.value = newValue
   osc1.harmonicity.value = newValue
-  console.log(osc1.harmonicity.value)
+  // console.log(osc1.harmonicity.value)
 }
 
 // FM Osc Harmonicity - Slider 4
@@ -205,7 +205,7 @@ function fmHarm(x) {
   const newValue = (x * 0.007974).toFixed(16)
   fmHarmSlider.value = newValue
   osc2.harmonicity.value = newValue
-  console.log(osc2.harmonicity.value)
+  // console.log(osc2.harmonicity.value)
 }
 
 
@@ -215,7 +215,7 @@ function crossCouple(x) {
   const newValue = ((x - 127) * newRange) / oldRange + 12
   crossCoupleSlider.value = newValue.toFixed(8)
   tapeDelayL2Amp.volume.value = newValue.toFixed(8)
-  console.log(tapeDelayL2Amp.volume.value)
+  // console.log(tapeDelayL2Amp.volume.value)
 }
 
 function rightToLeft(x) {
@@ -223,7 +223,7 @@ function rightToLeft(x) {
   const newValue = ((x - 127) * newRange) / oldRange + 12
   delayDepthSlider.value = newValue.toFixed(8)
   tapeDelayRAmp.volume.value = newValue.toFixed(8)
-  console.log(tapeDelayRAmp.volume.value)
+  // console.log(tapeDelayRAmp.volume.value)
 }
 
 
@@ -267,7 +267,7 @@ function noiseFreq(x) {
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   noiseFreqSlider.value = newValue
   noiseFilter.frequency.value = newValue
-  console.log(noiseFilter.frequency.value)
+  // console.log(noiseFilter.frequency.value)
 }
 
 // FM Osc Harmonicity - Slider 4
@@ -275,7 +275,7 @@ function noiseDepth(x) {
   const newValue = (x * 0.00787401).toFixed(16)
   noiseDepthSlider.value = newValue
   noiseFilter.depth.value = newValue
-  console.log(noiseFilter.depth.value)
+  // console.log(noiseFilter.depth.value)
 }
 
 // ADSR Sliders
@@ -283,28 +283,28 @@ function att(x) {
   const newValue = (x * 0.015748 + 0.01).toFixed(16) 
   attackSlider.value = newValue 
   env.attack = newValue
-  console.log(env.attack)
+  // console.log(env.attack)
 }
 
 function dec(x) {
   const newValue = (x * 0.015748 + 0.01).toFixed(16) 
   decaySlider.value = newValue 
   env.decay = newValue
-  console.log(env.decay)
+  // console.log(env.decay)
 }
 
 function sus(x) {
   const newValue = (x * 0.0078 + 0.01).toFixed(16) 
   sustainSlider.value = newValue 
   env.sustain = newValue
-  console.log(env.sustain)
+  // console.log(env.sustain)
 }
 
 function rel(x) {
   const newValue = (x * 0.015748 + 0.01).toFixed(16) 
   releaseSlider.value = newValue 
   env.release = newValue
-  console.log(env.release)
+  // console.log(env.release)
 }
 
 
