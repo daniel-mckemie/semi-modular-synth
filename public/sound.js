@@ -7,7 +7,7 @@
 // Record output
 console.clear();
 
-const audio = document.getElementsByTagName('audio');
+const audio = document.querySelector('audio');
 const actx = Tone.context;
 const dest = actx.createMediaStreamDestination();
 const recorder = new MediaRecorder(dest.stream);
