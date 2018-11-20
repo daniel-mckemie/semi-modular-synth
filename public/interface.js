@@ -165,7 +165,6 @@ const filterSwitch = new Nexus.Toggle('#filter-switch', {
   'state': false
 })
 
-// Starts the system, once on cannot be shut off
 filterSwitch.on('change', function(x) {
   if (x === true) {
     noise.start();
@@ -280,3 +279,4 @@ const delayDepthSlider = new Nexus.Slider('#delay-depth-slider', {
 delayDepthSlider.on('change', function(x) {
   tapeDelayRAmp.volume.value = x
 })
+

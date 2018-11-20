@@ -112,7 +112,7 @@ const onMIDIMessage = message => {
       noteOff(note, velocity) // note off
       break;
   }
-  // console.log('MIDI data', data) // Reads all MIDI data
+  console.log('MIDI data', data) // Reads all MIDI data
   // console.log('MIDI data', note)
 }
 
@@ -120,12 +120,16 @@ function frequencyFromNoteNumber(note) {
   return 440 * Math.pow(2, (note - 69) / 12)
 }
 
-console.clear()
+// console.clear()
 
 function noteOn(midiNote, velocity) {
+  // Try commented out block to prevent zippering effect
   osc1.frequency.value = frequencyFromNoteNumber(midiNote)
+  // osc1.frequency.setTargetAtTime(frequencyFromNoteNumber(midiNote), context.currentTime, 0.015)
   oscAmp1.volume.setTargetAtTime(-12, context.currentTime, 0.015)
+
   osc2.frequency.value = frequencyFromNoteNumber(midiNote)
+  // osc2.frequency.setTargetAtTime(frequencyFromNoteNumber(midiNote), context.currentTime, 0.015)
   oscAmp2.volume.setTargetAtTime(-12, context.currentTime, 0.015)
 
 }
@@ -133,8 +137,12 @@ function noteOn(midiNote, velocity) {
 
 
 function noteOff(midiNote, velocity) {
+  osc1.frequency.setTargetAtTime(0, context.currentTime, 0.015)
   oscAmp1.volume.setTargetAtTime(-88, context.currentTime, 0.015)
+  osc2.frequency.setTargetAtTime(0, context.currentTime, 0.015)
   oscAmp2.volume.setTargetAtTime(-88, context.currentTime, 0.015)
+  
+  
 }
 
 

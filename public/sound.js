@@ -14,6 +14,8 @@ const recorder = new MediaRecorder(dest.stream);
 
 const chunks = [];
 
+// Refer back to previous commits where the audio recorder worked.
+// The issue seems to be in the <audio> tag itself...
 
 const recButton = document.getElementById('record-button')
 recButton.addEventListener('click', function() {
@@ -22,8 +24,8 @@ recButton.addEventListener('click', function() {
   recorder.start();
 });
 
-document.getElementById('stop-button')
-.addEventListener('click', function() {
+const stopButton = document.getElementById('stop-button')
+stopButton.addEventListener('click', function() {
   recButton.style.backgroundColor = "#ffffff";
   recorder.stop();
   Tone.Transport.stop();
@@ -39,7 +41,7 @@ recorder.onstop = evt => {
 let rightChannel = new Tone.Panner(1).connect(dest).toMaster()
 
 // Delay of second Left channel to route out of Right channel
-let tapeDelayR = new Tone.Delay(4, 4).connect(rightChannel)
+let tapeDelayR = new Tone.Delay(8,8).connect(rightChannel)
 
 // Feedback depth for input at L channel from R channel coming back
 const tapeDelayRAmp = new Tone.Volume({
@@ -48,18 +50,18 @@ const tapeDelayRAmp = new Tone.Volume({
 
 // 'Phantom' Left channel, to appease orders of declaration
 // in Javascript and to prevent 'true' feedback loop
-let leftChannel2 = new Tone.Panner(-1).connect(tapeDelayRAmp).connect(dest).toMaster()
+let leftChannel2 = new Tone.Panner(-1).chain(tapeDelayRAmp, dest).toMaster()
 
 // This delay doubles signal back to Left Channel
-let tapeDelayL2 = new Tone.Delay(4, 4).connect(leftChannel2)
+let tapeDelayL2 = new Tone.Delay(8,8).connect(leftChannel2)
 
 // Feedback depth for L channel coupled back into input
 const tapeDelayL2Amp = new Tone.Volume({
   volume: -24,
 }).connect(tapeDelayL2)
 
-let tapeDelayL = new Tone.Delay(4, 4).chain(rightChannel, tapeDelayL2Amp)
-let leftChannel = new Tone.Panner(-1).connect(tapeDelayL).connect(dest).toMaster()
+let tapeDelayL = new Tone.Delay(8,8).chain(rightChannel, tapeDelayL2Amp)
+let leftChannel = new Tone.Panner(-1).chain(tapeDelayL, dest).toMaster()
 
 let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel)
 
@@ -112,7 +114,7 @@ const noiseFilter = new Tone.AutoFilter({
   frequency: 0,
   depth: 0,
   baseFrequency: 200
-}).connect(noiseAmp)
+}).connect(oscAmp2.volume) // .connect(noiseAmp)
 noise.connect(noiseFilter);
 
 //ADSR Envelope
