@@ -87,7 +87,7 @@ const noiseAmp = new Tone.Volume({
 
 const userAmp = new Tone.Volume({
   volume: -24,
-}).connect(machineReverb);
+}).connect(leftChannel);
 
 const userInput = new Tone.UserMedia({
   volume: -12
