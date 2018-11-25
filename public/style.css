@@ -55,14 +55,21 @@ audio {
 }
 
 #input-switch,
-#am-mod-switch,
 #mod-type,
-#fm-mod-switch,
 #filter-switch
 
 {
 	width: 3em;
 	height: 1em;
+}
+
+#am-mod-switch,
+#fm-mod-switch
+
+{
+	width: 3em;
+	height: 1em;
+	padding-left: 0.5em;
 }
 
 #am-freq-dial,
