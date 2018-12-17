@@ -16,14 +16,14 @@ const chunks = [];
 // Refer back to previous commits where the audio recorder worked.
 // The issue seems to be in the <audio> tag itself...
 
-const recButton = document.getElementById('record-button')
+const recButton = document.querySelector('#record-button')
 recButton.addEventListener('click', function() {
   recButton.style.backgroundColor = "red";
   Tone.Transport.start();
   recorder.start();
 });
 
-const stopButton = document.getElementById('stop-button')
+const stopButton = document.querySelector('#stop-button')
 stopButton.addEventListener('click', function() {
   recButton.style.backgroundColor = "#ffffff";
   recorder.stop();
@@ -49,7 +49,7 @@ const tapeDelayRAmp = new Tone.Volume({
 
 // 'Phantom' Left channel, to appease orders of declaration
 // in Javascript and to prevent 'true' feedback loop
-let leftChannel2 = new Tone.Panner(-1).chain(tapeDelayRAmp, dest).toMaster()
+let leftChannel2 = new Tone.Panner(-1).chain(tapeDelayRAmp).toMaster()
 
 // This delay doubles signal back to Left Channel
 let tapeDelayL2 = new Tone.Delay(8,8).connect(leftChannel2)
@@ -60,9 +60,9 @@ const tapeDelayL2Amp = new Tone.Volume({
 }).connect(tapeDelayL2)
 
 let tapeDelayL = new Tone.Delay(8,8).chain(rightChannel, tapeDelayL2Amp)
-let leftChannel = new Tone.Panner(-1).chain(tapeDelayL, dest).toMaster()
+let leftChannel = new Tone.Panner(-1).chain(tapeDelayL).toMaster()
 
-let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).connect(leftChannel)
+let machineReverb = new Tone.FeedbackDelay(0.133, 0.01).chain(leftChannel, dest)
 
 
 // Oscillator amplitudes...In order for these to 
@@ -113,7 +113,7 @@ const noiseFilter = new Tone.AutoFilter({
   frequency: 0,
   depth: 0,
   baseFrequency: 200
-}).connect(oscAmp2.volume) // .connect(noiseAmp)
+}).connect(noiseAmp)
 noise.connect(noiseFilter);
 
 //ADSR Envelope

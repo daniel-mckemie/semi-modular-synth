@@ -14,12 +14,14 @@ if (navigator.requestMIDIAccess) {
 }
 
 // MIDI Learn
-const qs = (e) => {
+function qs(e) {
   return document.querySelector(e);
 }
-const qsa = (e) => {
+
+function qsa(e) {
   return document.querySelectorAll(e);
 }
+
 const listdevices = (midiAccess) => {
   let list = ''
   for (let entry of midiAccess.inputs) {
@@ -68,7 +70,7 @@ const onMIDIMessage = event => {
     }
   }
 
-  const listenMidi = ( midiAccess, indexOfPort ) => {
+  const listenMidi = (midiAccess, indexOfPort) => {
     midiAccess.inputs.forEach
   }
 
@@ -188,7 +190,7 @@ const listenMidi = (midiAccess) => {
 }
 
 qs('.midilearn').addEventListener('click', (e) => {
-  if(midi) {
+  if (midi) {
     e.target.classList.add('active')
     midiLearn = true;
   }
