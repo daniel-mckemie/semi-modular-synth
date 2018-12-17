@@ -1,6 +1,8 @@
 // MIDI setup
 
 let midi;
+let midiLearn = false;
+let midiLearnElement = null;
 let data;
 // request MIDI access
 if (navigator.requestMIDIAccess) {
@@ -11,8 +13,29 @@ if (navigator.requestMIDIAccess) {
   alert("No MIDI support in your browser.");
 }
 
+// MIDI Learn
+const qs = (e) => {
+  return document.querySelector(e);
+}
+const qsa = (e) => {
+  return document.querySelectorAll(e);
+}
+const listdevices = (midiAccess) => {
+  let list = ''
+  for (let entry of midiAccess.inputs) {
+    let input = entry[1];
+    list = "<li>Input port [type:'" + input.type + "'] id:'" + input.id +
+      "' manufacturer:'" + input.manufacturer + "' name:'" + input.name +
+      "' version:'" + input.version + "'</li>";
+  }
+  qs('.midioutputs').innerHTML = list;
+}
+
 // MIDI functions
 function onMIDISuccess(midiAccess) {
+  console.log('MIDI ready!')
+  listdevices(midiAccess)
+  listenMidi(midiAccess)
   midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status 
   // when we get a succesful response, run this code
   const inputs = midi.inputs.values();
@@ -31,7 +54,25 @@ function onMIDIFailure(e) {
 
 let velocity
 
-const onMIDIMessage = message => {
+const onMIDIMessage = event => {
+  if (midiLearn) {
+    if (midiLearnElement != null) {
+      midiLearnElement.classList.add('link-' + event.data[1])
+      midiLearn = false;
+      midiLearnElement = null;
+      qs('.midilearn').classList.remove('active')
+    } else {
+      if (qs('.link-' + event.data[1])) {
+        qs('.link-' + event.data[1]).value = event.data[2];
+      }
+    }
+  }
+
+  const listenMidi = ( midiAccess, indexOfPort ) => {
+    midiAccess.inputs.forEach
+  }
+
+
   data = event.data,
     cmd = data[0] >> 4,
     channel = data[0] & 0xf,
@@ -125,26 +166,43 @@ function frequencyFromNoteNumber(note) {
 function noteOn(midiNote, velocity) {
   // Try commented out block to prevent zippering effect
   osc1.frequency.value = frequencyFromNoteNumber(midiNote)
-  // osc1.frequency.setTargetAtTime(frequencyFromNoteNumber(midiNote), context.currentTime, 0.015)
-  oscAmp1.volume.setTargetAtTime(-12, context.currentTime, 0.015)
+  // osc1.frequency.setTargetAtTime(frequencyFromNoteNumber(midiNote), actx.currentTime, 0.015)
+  oscAmp1.volume.setTargetAtTime(-12, actx.currentTime, 0.015)
 
   osc2.frequency.value = frequencyFromNoteNumber(midiNote)
-  // osc2.frequency.setTargetAtTime(frequencyFromNoteNumber(midiNote), context.currentTime, 0.015)
-  oscAmp2.volume.setTargetAtTime(-12, context.currentTime, 0.015)
+  // osc2.frequency.setTargetAtTime(frequencyFromNoteNumber(midiNote), actx.currentTime, 0.015)
+  oscAmp2.volume.setTargetAtTime(-12, actx.currentTime, 0.015)
 
 }
-
-
 
 function noteOff(midiNote, velocity) {
-  osc1.frequency.setTargetAtTime(0, context.currentTime, 0.015)
-  oscAmp1.volume.setTargetAtTime(-88, context.currentTime, 0.015)
-  osc2.frequency.setTargetAtTime(0, context.currentTime, 0.015)
-  oscAmp2.volume.setTargetAtTime(-88, context.currentTime, 0.015)
-  
-  
+  osc1.frequency.setTargetAtTime(0, actx.currentTime, 0.015)
+  oscAmp1.volume.setTargetAtTime(-88, actx.currentTime, 0.015)
+  osc2.frequency.setTargetAtTime(0, actx.currentTime, 0.015)
+  oscAmp2.volume.setTargetAtTime(-88, actx.currentTime, 0.015)
+
 }
 
+const listenMidi = (midiAccess) => {
+  midiAccess.inputs.forEach(function(entry) { entry.onmidimessage = onMIDIMessage })
+}
+
+qs('.midilearn').addEventListener('click', (e) => {
+  if(midi) {
+    e.target.classList.add('active')
+    midiLearn = true;
+  }
+})
+
+for (let p of qsa('.potards')) {
+  p.addEventListener('dblclick', (e) => {
+    if (midiLearn) {
+      midiLearnElement = e.target;
+      e.target.classList.add('active')
+
+    }
+  })
+}
 
 const oldRange = 127 - 0 // MIDI range
 
@@ -157,7 +215,7 @@ function amFreq(x) {
   const scale = (logMax - logMin) / (max - min)
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   amFreqDial.value = newValue
-  osc1.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
+  osc1.frequency.setTargetAtTime(newValue, actx.currentTime, 0.015) // de-zippering
   // console.log(osc1.frequency.value)
 }
 
@@ -177,7 +235,7 @@ function fmFreq(x) {
   const scale = (logMax - logMin) / (max - min)
   let newValue = Math.exp(logMin + scale * (x - min)).toFixed(8)
   fmFreqDial.value = newValue
-  osc2.frequency.setTargetAtTime(newValue, context.currentTime, 0.015) // de-zippering
+  osc2.frequency.setTargetAtTime(newValue, actx.currentTime, 0.015) // de-zippering
   // console.log(osc2.frequency.value)
 }
 
@@ -288,39 +346,29 @@ function noiseDepth(x) {
 
 // ADSR Sliders
 function att(x) {
-  const newValue = (x * 0.015748 + 0.01).toFixed(16) 
-  attackSlider.value = newValue 
+  const newValue = (x * 0.015748 + 0.01).toFixed(16)
+  attackSlider.value = newValue
   env.attack = newValue
   // console.log(env.attack)
 }
 
 function dec(x) {
-  const newValue = (x * 0.015748 + 0.01).toFixed(16) 
-  decaySlider.value = newValue 
+  const newValue = (x * 0.015748 + 0.01).toFixed(16)
+  decaySlider.value = newValue
   env.decay = newValue
   // console.log(env.decay)
 }
 
 function sus(x) {
-  const newValue = (x * 0.0078 + 0.01).toFixed(16) 
-  sustainSlider.value = newValue 
+  const newValue = (x * 0.0078 + 0.01).toFixed(16)
+  sustainSlider.value = newValue
   env.sustain = newValue
   // console.log(env.sustain)
 }
 
 function rel(x) {
-  const newValue = (x * 0.015748 + 0.01).toFixed(16) 
-  releaseSlider.value = newValue 
+  const newValue = (x * 0.015748 + 0.01).toFixed(16)
+  releaseSlider.value = newValue
   env.release = newValue
   // console.log(env.release)
 }
-
-
-
-
-
-
-
-
-
-

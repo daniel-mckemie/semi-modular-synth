@@ -110,4 +110,15 @@ audio {
 	padding-left: 2em;
 }
 
+.active {
+	border: 1px solid lime;
+}
+
+.potards {
+	display: block;
+	width: 200px;
+	height: 30px;
+	padding: 5px;
+}
+
 

@@ -5,13 +5,12 @@
 
 
 // Record output
-console.clear();
+// console.clear();
 
 const audio = document.querySelector('audio');
 const actx = Tone.context;
 const dest = actx.createMediaStreamDestination();
 const recorder = new MediaRecorder(dest.stream);
-
 const chunks = [];
 
 // Refer back to previous commits where the audio recorder worked.
