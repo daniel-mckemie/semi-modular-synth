@@ -5,7 +5,7 @@
 
 
 // Record output
-// console.clear();
+console.clear();
 
 const audio = document.querySelector('audio');
 const actx = Tone.context;

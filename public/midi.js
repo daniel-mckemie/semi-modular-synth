@@ -13,7 +13,7 @@ if (navigator.requestMIDIAccess) {
   alert("No MIDI support in your browser.");
 }
 
-// MIDI Learn
+
 function qs(e) {
   return document.querySelector(e);
 }
@@ -69,11 +69,6 @@ const onMIDIMessage = event => {
       }
     }
   }
-
-  const listenMidi = (midiAccess, indexOfPort) => {
-    midiAccess.inputs.forEach
-  }
-
 
   data = event.data,
     cmd = data[0] >> 4,
@@ -155,7 +150,7 @@ const onMIDIMessage = event => {
       noteOff(note, velocity) // note off
       break;
   }
-  console.log('MIDI data', data) // Reads all MIDI data
+  // console.log('MIDI data', data) // Reads all MIDI data
   // console.log('MIDI data', note)
 }
 
@@ -189,6 +184,11 @@ const listenMidi = (midiAccess) => {
   midiAccess.inputs.forEach(function(entry) { entry.onmidimessage = onMIDIMessage })
 }
 
+qs('.midistart').addEventListener('click', () => {
+  midi = null;
+  navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure)
+})
+
 qs('.midilearn').addEventListener('click', (e) => {
   if (midi) {
     e.target.classList.add('active')
@@ -196,8 +196,8 @@ qs('.midilearn').addEventListener('click', (e) => {
   }
 })
 
-for (let p of qsa('.potards')) {
-  p.addEventListener('dblclick', (e) => {
+for (let p of qsa('.midiobject')) {
+  p.addEventListener('click', (e) => {
     if (midiLearn) {
       midiLearnElement = e.target;
       e.target.classList.add('active')
